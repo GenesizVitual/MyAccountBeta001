@@ -12,9 +12,11 @@ use App\Http\Controllers\CustomClass\AkuntansiJasa\BukuBesar;
 class NeracaSaldo
 {
     public static $kategori_junal;
+    public static $id_bisnis;
 
     public static function NeracaSaldo($array){
         BukuBesar::$kategori_jurnal = self::$kategori_junal;
+        BukuBesar::$id_bisnis = self::$id_bisnis;
         $data_buku_besar = BukuBesar::BukuBesar('');
         $container = array();
         $total_debet  = 0;

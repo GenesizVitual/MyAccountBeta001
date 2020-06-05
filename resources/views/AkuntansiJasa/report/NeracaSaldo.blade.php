@@ -1,4 +1,4 @@
-<h1>Neraca saldo</h1>
+<h1>{{ $judul }}</h1>
 
 <table border="1" style="width: 80%">
     <tr>
@@ -9,7 +9,7 @@
     </tr>
     @php($saldo_debet=0)
     @php($saldo_kredit=0)
-    @foreach($data as $daftar_akun)
+    @foreach($data['data'] as $daftar_akun)
         @php($saldo_debet = abs($daftar_akun['saldo_debet']))
         @php($saldo_kredit = abs($daftar_akun['saldo_kredit']))
         <tr>
@@ -21,7 +21,7 @@
     @endforeach
     <tr>
         <td colspan="2">Total</td>
-        <td>{{ $total_debet }}</td>
-        <td>{{ $total_kredit }}</td>
+        <td>{{ $data['total_debet'] }}</td>
+        <td>{{ $data['total_kredit'] }}</td>
     </tr>
 </table>

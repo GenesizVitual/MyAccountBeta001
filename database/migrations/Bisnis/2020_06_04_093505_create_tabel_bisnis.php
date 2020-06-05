@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableJurnal extends Migration
+class CreateTabelBisnis extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateTableJurnal extends Migration
      */
     public function up()
     {
-        Schema::create('jurnal', function (Blueprint $table) {
+        Schema::create('bisnis', function (Blueprint $table) {
             $table->id();
-            $table->date('tgl_transaksi');
-            $table->string('kode');
-            $table->string('transaksi');
-            $table->string('kategori_jurnal');
-            $table->bigInteger('id_bisnis');
+            $table->string('nama_bisnis');
+            $table->enum('jenis_bisnis', ['JASA','DAGANG'])->default('DAGANG');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateTableJurnal extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jurnal');
+        Schema::dropIfExists('bisnis');
     }
 }

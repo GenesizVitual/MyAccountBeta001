@@ -81,18 +81,19 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Laravel <br>
+                    <small><label style="font-weight: bold">Beta Version :</label>1.0.0</small>
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="{{ url('jurnal-umum') }}">Jurnal Umum</a>
+                    <a href="{{ url('buku-besar') }}">Buku Besar</a>
+                    <a href="{{ url('neraca-saldo') }}">Neraca Saldo</a>
+                    <a href="{{ url('jurnal-penyesuian') }}">Jurnal Penyesuaian</a>
+                    <a href="{{ url('buku-besar-penyesuaian') }}">Buku Besar Penyesuaian</a>
+                    <a href="{{ url('laba-rugi') }}">Laba Rugi</a>
+                    <a href="{{ url('neraca-saldo-penyesuaian') }}">Neraca Saldo Penyesuaian</a>
+                    <a href="{{ url('neraca') }}">Neraca</a>
                 </div>
             </div>
         </div>

@@ -11,12 +11,14 @@ class BukuBesar extends Controller
     //
     public function buku_besar(){
         buku_besar::$kategori_jurnal = array(1);
+        buku_besar::$id_bisnis = 2;
         $data = buku_besar::BukuBesar('');
         return view('AkuntansiJasa.report.BukuBesar', array('data'=> $data,'judul'=>'Buku Besar'));
     }
 
     public function buku_besar_penyesuaian(){
         buku_besar::$kategori_jurnal = array(1,2);
+        buku_besar::$id_bisnis = 2;
         $data = buku_besar::BukuBesar('');
         return view('AkuntansiJasa.report.BukuBesar', array('data'=> $data,'judul'=>'Buku Besar Penyesuaian'));
     }

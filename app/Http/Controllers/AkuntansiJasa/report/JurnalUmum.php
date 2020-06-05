@@ -12,12 +12,14 @@ class JurnalUmum extends Controller
 
     public function JurnalUmum(){
         jurnal_umum::$ketegori_jurnal = array(1);
+        jurnal_umum::$id_bisnis = 2;
         $data = jurnal_umum::JurnalUmum('');
         return view('AkuntansiJasa.report.JurnalUmum', array('data'=>$data,'judul'=>'Jurnal Umum'));
     }
 
     public function JurnalPenyesuian(){
         jurnal_umum::$ketegori_jurnal = array(1,2);
+        jurnal_umum::$id_bisnis = 2;
         $data = jurnal_umum::JurnalUmum('');
         return view('AkuntansiJasa.report.JurnalUmum', array('data'=>$data, 'judul'=>'Laporan Umum Penyesuaian'));
     }

@@ -16,9 +16,10 @@ class JurnalUmum
     public static $total_jum_debet=0;
     public static $total_jum_kredit=0;
     public static $ketegori_jurnal;
+    public static $id_bisnis;
 
     public static function JurnalUmum($array){
-        $data = Jurnal::whereYear('tgl_transaksi',2020)->whereIn('kategori_jurnal', self::$ketegori_jurnal)->get();
+        $data = Jurnal::whereYear('tgl_transaksi',2020)->whereIn('kategori_jurnal', self::$ketegori_jurnal)->where('id_bisnis',self::$id_bisnis)->get();
         $container = array();
         $no_urut=1;
 

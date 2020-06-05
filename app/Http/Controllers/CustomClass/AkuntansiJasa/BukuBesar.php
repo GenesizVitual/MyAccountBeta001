@@ -18,6 +18,7 @@ class BukuBesar
     public static $total_debet=0;
     public static $total_kredit=0;
     public static $kategori_jurnal;
+    public static $id_bisnis;
 
     public static function operasiSaldo($data){
 
@@ -64,7 +65,7 @@ class BukuBesar
 
 
     public static function BukuBesar($array){
-        $data = JurnalTransaksiAkun::all()->where('tgl_jurnal','=',2020)->whereIn('kategori_jurnal',self::$kategori_jurnal)->sortBy('tgl_jurnal')->groupBy('akun_transaksi_id');
+        $data = JurnalTransaksiAkun::all()->where('tgl_jurnal','=',2020)->whereIn('kategori_jurnal',self::$kategori_jurnal)->sortBy('tgl_jurnal')->where('id_bisnis', self::$id_bisnis)->groupBy('akun_transaksi_id');
         $container=array();
         foreach ($data as $key => $akun){
             self::$total_saldo_debet=0;
@@ -83,6 +84,7 @@ class BukuBesar
                $row['kredit']= $data_akun->jum_kredit;
                $row['saldo_debet']= self::$total_saldo_debet;
                $row['saldo_kredit']= self::$total_saldo_kredit;
+               $row['total_saldo']= $data_akun->jum_debet+$data_akun->jum_kredit;
                self::$total_debet +=$data_akun->jum_debet;
                self::$total_kredit +=$data_akun->jum_kredit;
                $container[$key]['data'][]= $row;

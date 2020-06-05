@@ -19,6 +19,7 @@ class CreateTableAkunJurnalTransaksiAkun extends Migration
             $table->foreignId('akun_transaksi_id')->references('id')->on('akun_transaksi')->onDelete('cascade');
             $table->decimal('jum_debet',12,2);
             $table->decimal('jum_kredit',12,2);
+            $table->bigInteger('id_bisnis');
             $table->timestamps();
         });
     }
