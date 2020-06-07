@@ -30,7 +30,7 @@
     <hr class="sidebar-divider">
 
     <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{ url('daftar-produk') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Produk</span>
         </a>

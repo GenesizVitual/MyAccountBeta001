@@ -9,12 +9,17 @@
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Profile Outlate</h6>
+                <div class="dropdown no-arrow">
+                    <a href="{{ url('ubah-outlate/'.$data->id) }}" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-pen fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                </div>
             </div>
             <!-- Card Body -->
             <div class="card-body">
-                <div class="chart-area"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                    <canvas id="myAreaChart" style="display: block; width: 484px; height: 320px;" width="484" height="320" class="chartjs-render-monitor"></canvas>
-                </div>
+                <p>Halaman ini akan menampilkan data profil tentang outlate anda</p>
+                <h4>Nama Outlate: {{ $data->nama_bisnis }}</h4>
+                <h5>Alamat :{{ $data->alamat }}</h5>
             </div>
         </div>
     </div>

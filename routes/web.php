@@ -39,6 +39,22 @@ Route::get('neraca-saldo-penyesuaian', 'AkuntansiJasa\report\NeracaSaldo@NeracaS
 
 Route::get('outlate','AkuntansiDagang\main\Outlate@index');
 
+Route::get('ubah-outlate/{id}','AkuntansiDagang\main\Outlate@edit');
+
+Route::post('update-outlate/{id}','AkuntansiDagang\main\Outlate@update');
+
+Route::get('daftar-produk','AkuntansiDagang\main\Product@index');
+
+Route::get('tambah-produk','AkuntansiDagang\main\Product@create');
+
+Route::post('store-produk','AkuntansiDagang\main\Product@store');
+
+Route::get('ubah-produk/{id}','AkuntansiDagang\main\Product@edit');
+
+Route::post('update-produk/{id}','AkuntansiDagang\main\Product@update');
+
+Route::post('delete-produk/{id}','AkuntansiDagang\main\Product@delete');
+
 Route::get('saldo-awal-dagang', 'AkuntansiDagang\main\SaldoAwal@create');
 
 Route::post('simpan-saldo-awal-dagang', 'AkuntansiDagang\main\SaldoAwal@store');

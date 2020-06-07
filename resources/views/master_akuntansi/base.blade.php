@@ -18,6 +18,9 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('Asset/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+  <!-- Custom styles for this page -->
+  <link href="{{ asset('Asset/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -75,6 +78,13 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{{ asset('Asset/js/sb-admin-2.min.js') }}"></script>
+
+  <!-- Page level plugins -->
+  <script src="{{ asset('Asset/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('Asset/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{{ asset('Asset/js/demo/datatables-demo.js') }}"></script>
 
 </body>
 
