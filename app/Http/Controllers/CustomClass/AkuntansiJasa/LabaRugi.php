@@ -32,15 +32,15 @@ class LabaRugi
             $row = array();
             foreach ($data_akun->LinkToAkunJurnalTransaksi()->get() as $data_akun_transaksi){
                 if(!empty($data['data'][$data_akun_transaksi->kode])){
-                    $total_akun +=$data['data'][$data_akun_transaksi->kode]['saldo_debet']+$data['data'][$data_akun_transaksi->kode]['saldo_kredit'];
-                    $row[] = $data['data'][$data_akun_transaksi->kode];
+                    $total_akun = $data['data'][$data_akun_transaksi->kode]['saldo_debet']+$data['data'][$data_akun_transaksi->kode]['saldo_kredit'];
+                    $row[$data_akun_transaksi->kode] = $data['data'][$data_akun_transaksi->kode];
                     $container[$data_akun->akun_lv2]['data'] = $row;
                     $container[$data_akun->akun_lv2]['total'] = $total_akun;
                     $container[$data_akun->akun_lv2]['akun_id'] = $data_akun_transaksi->akun_id;
                 }
             }
         }
-         $laba_bersih = self::Laba_bersih($container);
+        $laba_bersih = self::Laba_bersih($container);
         $container['Total']=$laba_bersih;
         return $container;
     }

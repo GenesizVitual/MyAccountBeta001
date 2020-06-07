@@ -84,7 +84,7 @@ class BukuBesar
                $row['kredit']= $data_akun->jum_kredit;
                $row['saldo_debet']= self::$total_saldo_debet;
                $row['saldo_kredit']= self::$total_saldo_kredit;
-               $row['total_saldo']= $data_akun->jum_debet+$data_akun->jum_kredit;
+               $row['total_saldo'] = self::$total_saldo_debet + self::$total_saldo_kredit;
                self::$total_debet +=$data_akun->jum_debet;
                self::$total_kredit +=$data_akun->jum_kredit;
                $container[$key]['data'][]= $row;

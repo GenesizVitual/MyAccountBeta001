@@ -21,7 +21,8 @@ class NeracaSaldo
         $container = array();
         $total_debet  = 0;
         $total_kredit = 0;
-        foreach ($data_buku_besar as $key=> $data){
+        foreach ($data_buku_besar as $key=> $data)
+        {
            $total_debet += abs(end($data['data'])['saldo_debet']);
            $total_kredit += abs(end($data['data'])['saldo_kredit']);
            $container[$data['kode']] = end($data['data']);
