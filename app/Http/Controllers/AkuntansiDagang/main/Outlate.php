@@ -23,6 +23,9 @@ class Outlate extends Controller
         $model = Bisnis::findOrFail($id);
         $model->nama_bisnis =  $req->nama_bisnis;
         $model->alamat =  $req->alamat;
+        $model->latitude =  $req->latitude;
+        $model->longitude =  $req->longtitude;
+
         $gambar= $req->gambar;
 
         $imagename = time() . '.' . $gambar->getClientOriginalExtension();

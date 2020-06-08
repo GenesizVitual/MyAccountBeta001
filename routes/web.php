@@ -41,6 +41,22 @@ Route::get('logout','User@out');
 
 Route::get('akuntansi', 'AkuntansiJasa\main\Akuntansi@index');
 
+Route::get('jurnal','AkuntansiJasa\main\Akuntansi@create');
+
+Route::post('store-jurnal','AkuntansiJasa\main\Akuntansi@store');
+
+Route::post('store-jurnal','AkuntansiJasa\main\Akuntansi@store');
+
+Route::get('detail-jurnal/{id_jurnal}','AkuntansiJasa\main\Akuntansi@detail_jurnal');
+
+Route::get('detail-jurnal/{id_jurnal}/create','AkuntansiJasa\main\Akuntansi@create_akun');
+
+Route::post('store-akun/{id_jurnal}','AkuntansiJasa\main\Akuntansi@store_akun');
+
+Route::post('update-jurnal/{id_jurnal}','AkuntansiJasa\main\Akuntansi@update_akun');
+
+Route::post('delete-akun/{id_akun}','AkuntansiJasa\main\Akuntansi@delete_akun');
+
 Route::get('jurnal-umum', 'AkuntansiJasa\report\JurnalUmum@JurnalUmum');
 
 Route::get('buku-besar', 'AkuntansiJasa\report\BukuBesar@buku_besar');
