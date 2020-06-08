@@ -9,6 +9,7 @@ use App\Model\AkuntansiDagang\Product;
 use App\Model\AkuntansiDagang\Pembelian as pembelian_dagang;
 use App\Http\Controllers\CustomClass\AkuntansiDagang\PembelianPenjuanlan;
 use App\Model\AkuntansiJasa\Jurnal;
+use Session;
 class Pembelian extends Controller
 {
     //
@@ -18,8 +19,8 @@ class Pembelian extends Controller
 
     public function index()
     {
-        $product = Product::all()->where('id_bisnis',2);
-        $model  = pembelian_dagang::all()->where('id_bisnis',2)->sortByDesc('id')->groupBy('kode');
+        $product = Product::all()->where('id_bisnis', Session::get('id_bisnis'));
+        $model  = pembelian_dagang::all()->where('id_bisnis', Session::get('id_bisnis'))->sortByDesc('id')->groupBy('kode');
         return view('AkuntansiDagang.Pembelian.view', array('data'=> $model,'product'=>$product));
     }
 
@@ -44,7 +45,7 @@ class Pembelian extends Controller
             $range = self::$range;
         }
 
-        $product = Product::all()->where('id_bisnis', 2);
+        $product = Product::all()->where('id_bisnis', Session::get('id_bisnis'));
         return view('AkuntansiDagang.Pembelian.create', array('product'=> $product,'kode'=> $kode,'range'=> $range));
     }
 
@@ -66,7 +67,7 @@ class Pembelian extends Controller
             $pembelian->jumlah_pajak = $total_pajak;
             $pembelian->status_pembayaran= $req->status_pembayaran;
             $pembelian->kode= $req->kode;
-            $pembelian->id_bisnis = 2;
+            $pembelian->id_bisnis = Session::get('id_bisnis');
             if($pembelian->save()){
                 $penjurnalan = PembelianPenjuanlan::pembelian($pembelian);
                 $product = Product::findOrFail($pembelian->product_id);
@@ -92,7 +93,7 @@ class Pembelian extends Controller
 
             $pembelian->jumlah_pajak = $total_pajak;
             $pembelian->status_pembayaran= $req->status_pembayaran[$key];
-            $pembelian->id_bisnis = 2;
+            $pembelian->id_bisnis = Session::get('id_bisnis');
             if($pembelian->save()){
                 $penjurnalan = PembelianPenjuanlan::pembelian($pembelian);
                 $product = Product::findOrFail($pembelian->product_id);

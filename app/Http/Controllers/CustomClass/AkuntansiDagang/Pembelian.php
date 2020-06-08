@@ -11,8 +11,10 @@ use App\Model\AkuntansiDagang\Pembelian as pembelian_;
 
 class Pembelian
 {
+    public static $id_bisnis;
+
     public static function pembelian($array){
-        $model = pembelian_::all()->sortBy('tgl_pembelian');
+        $model = pembelian_::all()->where('id_bisnis', self::$id_bisnis)->sortBy('tgl_pembelian');
         $no = 1;
         $container = array();
         foreach ($model as $data){

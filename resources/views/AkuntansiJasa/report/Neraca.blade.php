@@ -1,46 +1,66 @@
-<h1>{{ $judul }}</h1>
-<ul>
+@extends('master_akuntansi.base')
 
-    @foreach($data as $lv1s=> $new_data)
-        @php($total = 0)
-            <li>{{ $lv1s }}
+@section('content')
+    <h1 class="h3 mb-4 text-gray-800">Neraca</h1>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-7">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Akun Neraca</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <p>Halaman ini akan menampilkan seluruh Akun Neraca</p>
+
                 <ul>
-                    @foreach($new_data as $key=> $list)
-                        <label style="font-weight: bold"> {{ $key }}</label>
-                        @if(!empty($list['data']))
+
+                    @foreach($data as $lv1s=> $new_data)
+                        @php($total = 0)
+                        <li>{{ $lv1s }}
                             <ul>
-                                @foreach($list['data'] as $data)
-                                    <li>
-                                        <table >
-                                            <tr>
-                                                <td width="300px" style="font-weight: bold">
-                                                    <label>{{ $data['nama_akun'] }}</label>
-                                                </td>
-                                                <td>
-                                                    <label>:{{ $data['total_saldo'] }}</label>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </li>
+                                @foreach($new_data as $key=> $list)
+                                    <label style="font-weight: bold"> {{ $key }}</label>
+                                    @if(!empty($list['data']))
+                                        <ul>
+                                            @foreach($list['data'] as $data)
+                                                <li style="list-style:none">
+                                                    <table >
+                                                        <tr>
+                                                            <td width="300px" style="font-weight: bold">
+                                                                <label>{{ $data['nama_akun'] }}</label>
+                                                            </td>
+                                                            <td>
+                                                                <label>:{{ $data['total_saldo'] }}</label>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </li>
+                                            @endforeach
+                                            <li style="list-style:none">
+                                                <table>
+                                                    <tr>
+                                                        <td width="300px" style="font-weight: bold">Total Kotor {{ $key }}</td>
+                                                        <td> :{{ $list['total'] }}</td>
+                                                        @php($total+=$list['total'])
+                                                    </tr>
+                                                </table>
+                                            </li>
+                                        </ul>
+                                    @else
+                                        <label style="margin-left: 24%">:{{ $list }}</label>
+                                    @endif
                                 @endforeach
-                                <li>
-                                    <table>
-                                        <tr>
-                                            <td width="300px" style="font-weight: bold">Total Kotor {{ $key }}</td>
-                                            <td> :{{ $list['total'] }}</td>
-                                            @php($total+=$list['total'])
-                                        </tr>
-                                    </table>
-                                </li>
                             </ul>
-                        @else
-                            <label style="margin-left: 24%">:{{ $list }}</label>
-                        @endif
+                        </li>
+                        <li>
+                            Total {{ $lv1s }} : {{ $total }}
+                        </li>
                     @endforeach
                 </ul>
-            </li>
-            <li>
-                Total {{ $lv1s }} : {{ $total }}
-            </li>
-    @endforeach
-</ul>
+            </div>
+        </div>
+    </div>
+</div>
+@stop

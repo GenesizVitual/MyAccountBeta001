@@ -5,12 +5,13 @@ namespace App\Http\Controllers\AkuntansiDagang\main;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\AkuntansiDagang\Product as produk;
+use Session;
 
 class Product extends Controller
 {
     //
     public function index(){
-        $model = produk::all()->where('id_bisnis',2);
+        $model = produk::all()->where('id_bisnis',Session::get('id_bisnis'));
         return view('AkuntansiDagang.Product.view', array('data'=> $model));
     }
 
@@ -21,13 +22,18 @@ class Product extends Controller
     public function store(Request $req){
         $model = new produk();
         $model->nama_barang = $req->nama_barang;
-        $model->gambar = $req->gambar;
         $model->satuan = $req->satuan;
         $model->harga = $req->harga;
         $model->stok = $req->stok;
         $model->id_bisnis = 2;
+        $gambar= $req->gambar;
 
+        $imagename = time() . '.' . $gambar->getClientOriginalExtension();
+        $model->gambar = $imagename;
         if($model->save()){
+            if(!empty($req->gambar)){
+                $gambar->move(public_path('produk'), $imagename);
+            }
            $req->session()->flash('message_success', 'Anda telah menambahkan produk baru');
            return redirect('daftar-produk');
         }
@@ -44,11 +50,30 @@ class Product extends Controller
     public function update(Request $req, $id){
         $model = produk::findOrFail($id);
         $model->nama_barang = $req->nama_barang;
-        $model->gambar = $req->gambar;
+
         $model->satuan = $req->satuan;
         $model->harga = $req->harga;
         $model->stok = $req->stok;
         $model->id_bisnis = 2;
+        $gambar= $req->gambar;
+
+        $imagename = time() . '.' . $gambar->getClientOriginalExtension();
+        $model->gambar = $imagename;
+        if(!empty($model->gambar))
+        {
+            $file_path =public_path('produk').'/' . $model->gambar;
+            if (file_exists($file_path)) {
+                @unlink($file_path);
+            }
+        }
+
+        if($model->save()){
+            if(!empty($req->gambar)){
+                $gambar->move(public_path('produk'), $imagename);
+            }
+            $req->session()->flash('message_success', 'Anda telah menambahkan produk baru');
+            return redirect('daftar-produk');
+        }
 
         if($model->save()){
             $req->session()->flash('message_success', 'Anda telah mengubah produk');

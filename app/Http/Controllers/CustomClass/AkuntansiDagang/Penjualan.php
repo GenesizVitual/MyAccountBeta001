@@ -11,8 +11,9 @@ use App\Model\AkuntansiDagang\Penjualan as penjualan_;
 
 class Penjualan
 {
+    public static $id_bisnis;
     public static function penjualan($array){
-        $model = penjualan_::all()->sortBy('tgl_penjualan');
+        $model = penjualan_::all()->where('id_bisnis', self::$id_bisnis)->sortBy('tgl_penjualan');
         $no = 1;
         $container = array();
         foreach ($model as $data){

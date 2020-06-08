@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Model\AkuntansiDagang\Product;
 use App\Model\AkuntansiDagang\Penjualan as penjualan_dagang;
 use App\Http\Controllers\CustomClass\AkuntansiDagang\PembelianPenjuanlan;
+use Session;
 
 class Penjualan extends Controller
 {
@@ -18,8 +19,8 @@ class Penjualan extends Controller
 
     public function index()
     {
-        $product = Product::all()->where('id_bisnis',2);
-        $model  = penjualan_dagang::all()->where('id_bisnis',2)->sortByDesc('id')->groupBy('kode');
+        $product = Product::all()->where('id_bisnis',Session::get('id_bisnis'));
+        $model  = penjualan_dagang::all()->where('id_bisnis',Session::get('id_bisnis'))->sortByDesc('id')->groupBy('kode');
         return view('AkuntansiDagang.Penjualan.view', array('data'=> $model,'product'=>$product));
     }
 
@@ -46,7 +47,7 @@ class Penjualan extends Controller
             $range = self::$range;
         }
 
-        $product = Product::all()->where('id_bisnis', 2);
+        $product = Product::all()->where('id_bisnis', Session::get('id_bisnis'));
         return view('AkuntansiDagang.Penjualan.create', array('product'=> $product,'kode'=> $kode,'range'=> $range));
     }
 
@@ -67,7 +68,7 @@ class Penjualan extends Controller
             $penjualan->jumlah_pajak = $total_pajak;
             $penjualan->status_pembayaran = $req->status_pembayaran;
             $penjualan->kode = $req->kode;
-            $penjualan->id_bisnis = 2;
+            $penjualan->id_bisnis = Session::get('id_bisnis');
 
             if ($penjualan->save()) {
                 $penjurnalan = PembelianPenjuanlan::penjualan($penjualan);
@@ -97,7 +98,7 @@ class Penjualan extends Controller
 
             $penjualan->jumlah_pajak = $total_pajak;
             $penjualan->status_pembayaran= $req->status_pembayaran[$key];
-            $penjualan->id_bisnis = 2;
+            $penjualan->id_bisnis = Session::get('id_bisnis');
             if($penjualan->save()){
                 $penjurnalan = PembelianPenjuanlan::penjualan($penjualan);
 //                $product = Product::findOrFail($pembelian->product_id);

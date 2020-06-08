@@ -17,7 +17,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <form action="{{ url('update-outlate/'. $data->id) }}" method="post">
+                    <form action="{{ url('update-outlate/'. $data->id) }}" method="post" enctype="multipart/form-data">
                         <p>Halaman ini untuk mengubah data profil tentang outlate anda</p>
                         <h5>
                             Nama Bisnis :
@@ -25,6 +25,9 @@
                         </h5>
                         <h5>Alamat :
                             <textarea class="form-control" name="alamat">{{ $data->alamat }}</textarea>
+                        </h5>
+                        <h5>Gambar :
+                            <input type="file" class="form-control" name="gambar">
                         </h5>
                         {{ csrf_field() }}
                         <button type="submit" class="btn btn-success">Simpan</button>

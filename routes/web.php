@@ -13,11 +13,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('master_akuntansi.base');
+Route::get('/', 'Aisyah\MakananLocal@index');
+
+Route::get('rumah-makan','Aisyah\MakananLocal@outlate');
+
+Route::get('get-lokasi','Aisyah\MakananLocal@getLatlong');
+
+Route::get('detail-outlate/{id}','Aisyah\MakananLocal@detail_outlate');
+
+Route::get('tentang','Aisyah\MakananLocal@tentang');
+
+Route::get('login',function(){
+    return view('webpage.register_dan_login.login');
 });
 
+Route::get('register',function(){
+    return view('webpage.register_dan_login.register');
+});
+
+Route::post('register-post', 'User@store');
+
+Route::post('login-post', 'User@login');
+
+Route::get('logout','User@out');
+
 //============================================= Akuntansi Jasa =========================================================
+
+Route::get('akuntansi', 'AkuntansiJasa\main\Akuntansi@index');
 
 Route::get('jurnal-umum', 'AkuntansiJasa\report\JurnalUmum@JurnalUmum');
 

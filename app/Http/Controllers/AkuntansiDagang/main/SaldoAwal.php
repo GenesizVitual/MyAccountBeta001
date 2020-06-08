@@ -21,7 +21,7 @@ class SaldoAwal extends Controller
         $jurnal->kode = $req->kode;
         $jurnal->transaksi = $req->transaksi;
         $jurnal->kategori_jurnal = 1;
-        $jurnal->id_bisnis = 2;
+        $jurnal->id_bisnis = Session::get('id_bisnis');
 
         if($jurnal->save()){
             $jurnal_transaksi_kas = new JurnalTransaksiAkun();
