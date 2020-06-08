@@ -29,7 +29,8 @@
                                 <tr>
                                     <td colspan="5"><a class="btn btn-success"  href="{{ url('selipkan-penjualan/'.$kode.'/1') }}">Selipkan Penjualan</a></td>
                                     <td colspan="2">
-                                        <a href="{{ url('hapus-penjualan/'.$kode) }}" class="btn btn-danger"  onclick="return confirm('Apakah anda akan menghapus data')">Hapus Penjualan</a>
+                                        <a href="{{ url('hapus-penjualan/'.$kode) }}" class="btn btn-danger"  onclick="return confirm('Apakah anda akan menghapus data')"><i class="fa fa-eraser"></i> Hapus Penjualan</a>
+                                        <a href="{{ url('cetak-penjualan/'.$kode) }}" class="btn btn-primary" ><i class="fa fa-print"></i> Cetak</a>
                                     </td>
                                 </tr>
                                 <tr>

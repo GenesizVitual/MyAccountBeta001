@@ -69,6 +69,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
+  <script src="{{ asset('Asset/vendor/jquery/jquery-3.5.1.js') }}"></script>
   <!-- Bootstrap core JavaScript-->
   <script src="{{ asset('Asset/vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('Asset/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -85,6 +86,8 @@
 
   <!-- Page level custom scripts -->
   <script src="{{ asset('Asset/js/demo/datatables-demo.js') }}"></script>
+
+  @yield('js')
 
 </body>
 

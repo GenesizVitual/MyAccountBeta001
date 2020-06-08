@@ -77,6 +77,7 @@ Route::post('update-produk/{id}','AkuntansiDagang\main\Product@update');
 
 Route::post('delete-produk/{id}','AkuntansiDagang\main\Product@delete');
 
+
 Route::get('saldo-awal-dagang', 'AkuntansiDagang\main\SaldoAwal@create');
 
 Route::post('simpan-saldo-awal-dagang', 'AkuntansiDagang\main\SaldoAwal@store');
@@ -110,6 +111,11 @@ Route::get('hapus-penjualan/{kode}','AkuntansiDagang\main\Penjualan@delete_penju
 
 Route::get('hapus-item-penjualan/{id}','AkuntansiDagang\main\Penjualan@delete_item_penjualan');
 
+Route::get('pos/{range}','AkuntansiDagang\main\Penjualan@list_post');
+
+Route::get('cetak-penjualan/{kode}','AkuntansiDagang\main\Penjualan@cetak_stuck');
+
+Route::post('prev','AkuntansiDagang\main\Penjualan@lihat_belanja' );
 //********************************************** Laporan Akuntansi Dagang **********************************************
 
 Route::get('laporan-pembelian','AkuntansiDagang\report\Pembelian@index');

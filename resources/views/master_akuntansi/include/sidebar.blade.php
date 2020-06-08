@@ -35,6 +35,12 @@
             <span>Produk</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('pos/5') }}">
+            <i class="fas fa-fw fa-archive"></i>
+            <span>POS</span>
+        </a>
+    </li>
 
     <hr class="sidebar-divider">
 
