@@ -16,6 +16,7 @@ class User extends Controller
         if(Hash::check($req->password, $user->password)){
             $req->session()->put('user_id', $user->id);
             $req->session()->put('nama', $user->name);
+            $req->session()->put('level', $user->level);
             $bisnis = Bisnis::where('user_id', $user->id)->first();
             $req->session()->put('id_bisnis', $bisnis->id);
             $req->session()->flash('message_success','Selamat Datang di Aplikasi Manajemen Persediaan');
