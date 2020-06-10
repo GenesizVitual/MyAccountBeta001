@@ -39,6 +39,7 @@
                                 <ul>
                                     <li>Unit: {{ $produk->satuan }}</li>
                                     <li>Harga: {{ number_format($produk->harga,2,',','.') }}</li>
+                                    <li>Stok: {{ number_format($produk->stok,2,',','.') }}</li>
                                 </ul>
                             </small>
                         </p>
@@ -46,7 +47,5 @@
                 @endforeach
                 </div>
             </section>
-
-
 
 @stop

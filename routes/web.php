@@ -127,13 +127,22 @@ Route::get('hapus-penjualan/{kode}','AkuntansiDagang\main\Penjualan@delete_penju
 
 Route::get('hapus-item-penjualan/{id}','AkuntansiDagang\main\Penjualan@delete_item_penjualan');
 
-Route::get('pos/{range}','AkuntansiDagang\main\Penjualan@list_post');
+// ============================================ POS ====================================================================
+Route::get('pos/{range}','AkuntansiDagang\main\POS@list_post');
 
-Route::get('cetak-penjualan/{kode}','AkuntansiDagang\main\Penjualan@cetak_stuck');
+Route::get('selipkan-penjualan-pos/{kode_penjualan}','AkuntansiDagang\main\POS@slip_penjualan');
 
-Route::post('prev','AkuntansiDagang\main\Penjualan@lihat_belanja' );
+Route::get('cetak-penjualan/{kode}','AkuntansiDagang\main\POS@cetak_stuck');
+
+Route::post('prev','AkuntansiDagang\main\POS@lihat_belanja' );
+
+Route::post('list-produk','AkuntansiDagang\main\POS@plug_produk');
+
+
 //********************************************** Laporan Akuntansi Dagang **********************************************
 
 Route::get('laporan-pembelian','AkuntansiDagang\report\Pembelian@index');
 
 Route::get('laporan-penjualan','AkuntansiDagang\report\Penjualan@index');
+
+Route::get('laporan-stok','AkuntansiDagang\report\StokProduk@index');

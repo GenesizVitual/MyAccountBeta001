@@ -17,7 +17,7 @@
                 {{--<li><a href="{{ url('tentang') }}">Tentang</a></li>--}}
                 <li>
                         @if(!empty(Session::get('user_id')))
-                            <a href="#">Anda Telah Login</a>
+                            <a href="{{ url('outlate') }}">Anda Telah Login</a>
                         @else
                             <a href="{{ url('login') }}">Login</a>
                         @endif

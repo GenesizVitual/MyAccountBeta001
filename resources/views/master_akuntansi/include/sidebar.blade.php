@@ -91,6 +91,7 @@
                     <h6 class="collapse-header">Daftar Laporan:</h6>
                     <a class="collapse-item" href="{{ url('laporan-pembelian') }}">Pembelian</a>
                     <a class="collapse-item" href="{{ url('laporan-penjualan') }}">Penjualan</a>
+                    <a class="collapse-item" href="{{ url('laporan-stok') }}">Stok</a>
                     <a class="collapse-item" href="{{ url('buku-besar') }}">Buku Besar</a>
                     <a class="collapse-item" href="{{ url('neraca-saldo') }}">Neraca Saldo</a>
                     <a class="collapse-item" href="{{ url('laba-rugi') }}">Laba Rugi</a>
