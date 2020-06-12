@@ -14,9 +14,21 @@ class NeracaSaldo
     public static $kategori_junal;
     public static $id_bisnis;
 
+    public static $begin_date_a_year;
+    public static $end_date_a_year;
+
+
+    public static function set_date_(){
+        self::$begin_date_a_year = date('Y-01-01');
+        self::$end_date_a_year = date('Y-12-31');
+    }
+
     public static function NeracaSaldo($array){
         BukuBesar::$kategori_jurnal = self::$kategori_junal;
         BukuBesar::$id_bisnis = self::$id_bisnis;
+        BukuBesar::$begin_date_a_year = self::$begin_date_a_year;
+        BukuBesar::$end_date_a_year = self::$end_date_a_year;
+
         $data_buku_besar = BukuBesar::BukuBesar('');
         $container = array();
         $total_debet  = 0;

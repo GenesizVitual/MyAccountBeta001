@@ -11,9 +11,19 @@ class LabaRugi extends Controller
     //
 
     public function LabaRugi(){
+        laba_rugi::set_date_();
         laba_rugi::$kategori_jurnal = array(1);
         laba_rugi::$id_bisnis = Session::get('id_bisnis');
         $data = laba_rugi::LabaRugi('');
         return view('AkuntansiJasa.report.LabaRugi', array('data'=> $data,'judul'=> 'Laba Rugi'));
+    }
+
+    public function CetakLabaRugi(Request $req){
+        laba_rugi::$begin_date_a_year = $req->tgl_awal;
+        laba_rugi::$end_date_a_year = $req->tgl_akhir;
+        laba_rugi::$kategori_jurnal = array(1);
+        laba_rugi::$id_bisnis = Session::get('id_bisnis');
+        $data = laba_rugi::LabaRugi('');
+        return view('AkuntansiJasa.report.LabaRugi_old', array('data'=> $data,'judul'=> 'Laba Rugi'));
     }
 }

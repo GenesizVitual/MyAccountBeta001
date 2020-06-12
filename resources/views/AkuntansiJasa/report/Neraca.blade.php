@@ -13,7 +13,23 @@
             <!-- Card Body -->
             <div class="card-body">
                 <p>Halaman ini akan menampilkan seluruh Akun Neraca</p>
-
+                <form action="{{ url('ceta-neraca') }}" method="post" target="_blank">
+                    <div class="row">
+                        <div class="col-3">
+                            Tanggal Awal
+                            <input class="form-control" type="date" name="tgl_awal" required>
+                        </div>
+                        <div class="col-3">
+                            Tanggal Akhir
+                            <input class="form-control" type="date" name="tgl_akhir" required>
+                        </div>
+                        <div class="col-3">
+                            <button type="submit" class="btn btn-success" style="margin-top: 10%"><i class="fa fa-print"></i> Print</button>
+                        </div>
+                        {{ csrf_field() }}
+                    </div>
+                </form>
+                <hr>
                 <ul>
 
                     @foreach($data as $lv1s=> $new_data)
@@ -32,7 +48,7 @@
                                                                 <label>{{ $data['nama_akun'] }}</label>
                                                             </td>
                                                             <td>
-                                                                <label>:{{ $data['total_saldo'] }}</label>
+                                                                <label>:{{ number_format($data['total_saldo'],2,',','.') }}</label>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -41,21 +57,21 @@
                                             <li style="list-style:none">
                                                 <table>
                                                     <tr>
-                                                        <td width="300px" style="font-weight: bold">Total Kotor {{ $key }}</td>
-                                                        <td> :{{ $list['total'] }}</td>
+                                                        <td width="300px" style="font-weight: bold">Total  {{ $key }}</td>
+                                                        <td> :{{ number_format($list['total'],2,',','.') }}</td>
                                                         @php($total+=$list['total'])
                                                     </tr>
                                                 </table>
                                             </li>
                                         </ul>
                                     @else
-                                        <label style="margin-left: 24%">:{{ $list }}</label>
+                                        <label style="margin-left: 24%">:{{ number_format($list,2,',','.')}}</label>
                                     @endif
                                 @endforeach
                             </ul>
                         </li>
                         <li>
-                            Total {{ $lv1s }} : {{ $total }}
+                            Total {{ $lv1s }} : {{ number_format($total,2,',','.') }}
                         </li>
                     @endforeach
                 </ul>

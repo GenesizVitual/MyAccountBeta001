@@ -13,6 +13,22 @@
             <!-- Card Body -->
             <div class="card-body">
                 <p>Halaman ini akan menampilkan seluruh Data stok yg tersedia dioutlet anda</p>
+                <form action="{{ url('print-stok') }}" method="post" target="_blank">
+                    <div class="row">
+                        <div class="col-3">
+                            Tanggal Awal
+                            <input class="form-control" type="date" name="tgl_awal" required>
+                        </div>
+                        <div class="col-3">
+                            Tanggal Akhir
+                            <input class="form-control" type="date" name="tgl_akhir" required>
+                        </div>
+                        <div class="col-3">
+                            <button type="submit" class="btn btn-success" style="margin-top: 10%"><i class="fa fa-print"></i> Print</button>
+                        </div>
+                        {{ csrf_field() }}
+                    </div>
+                </form>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr style="background-color: lawngreen">

@@ -15,12 +15,23 @@ class LabaRugi
     public static $kategori_jurnal;
     public static $id_bisnis;
 
+    public static $begin_date_a_year;
+    public static $end_date_a_year;
+
+
+    public static function set_date_(){
+        self::$begin_date_a_year = date('Y-01-01');
+        self::$end_date_a_year = date('Y-12-31');
+    }
+
     public static $key_laba = [
         'Akun Pendapatan'=>4,
         'Akun Beban'=>5,
     ];
 
     public static function LabaRugi($array){
+        NeracaSaldo::$begin_date_a_year = self::$begin_date_a_year;
+        NeracaSaldo::$end_date_a_year = self::$end_date_a_year;
         NeracaSaldo::$kategori_junal = self::$kategori_jurnal;
         NeracaSaldo::$id_bisnis = self::$id_bisnis;
         $data = NeracaSaldo::NeracaSaldo('');

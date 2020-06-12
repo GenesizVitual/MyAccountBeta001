@@ -16,6 +16,15 @@ class Neraca
     public static $kategori_jurnal;
     public static $id_bisnis;
 
+    public static $begin_date_a_year;
+    public static $end_date_a_year;
+
+
+    public static function set_date_(){
+        self::$begin_date_a_year = date('Y-01-01');
+        self::$end_date_a_year = date('Y-12-31');
+    }
+
     public static $key_laba = [
         'Akun asset'=>1,
         'Akun kewajiban'=>2,
@@ -24,6 +33,8 @@ class Neraca
 
     public static function Neraca($array){
         NeracaSaldo::$kategori_junal = self::$kategori_jurnal;
+        NeracaSaldo::$begin_date_a_year = self::$begin_date_a_year;
+        NeracaSaldo::$end_date_a_year= self::$end_date_a_year;
         NeracaSaldo::$id_bisnis = self::$id_bisnis;
         $data = NeracaSaldo::NeracaSaldo('');
         $data_akun = Akun::all()->where('buku_besar_id',1);
@@ -55,6 +66,8 @@ class Neraca
     public static function pluck_laba_rugi($container){
         laba_rugi::$kategori_jurnal = array(1);
         laba_rugi::$id_bisnis = self::$id_bisnis;
+        laba_rugi::$begin_date_a_year = self::$begin_date_a_year;
+        laba_rugi::$end_date_a_year = self::$end_date_a_year;
         $data = laba_rugi::LabaRugi('');
         $plug_laba = array(
             'nama_akun'=>'Laba ditahan tahun Berjalan',

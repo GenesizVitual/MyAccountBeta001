@@ -5,26 +5,21 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $judul }}</title>
+    <title>Cetak Stok</title>
     <link href="{{ asset('Asset/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this page -->
     <link href="{{ asset('Asset/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 </head>
-<body style="margin-left: 10%; margin-right: 20%">
-<h1>{{ $judul }}</h1>
-
-<table border="1" style="width: 80%">
+<body  style="margin-left: 10%; margin-right: 20%">
+<h1>Laporan Stok</h1>
+<table border="1" cellspacing="0" style="width: 90%">
     <thead>
-    <tr>
+    <tr style="background-color: lawngreen">
         <td>No</td>
-        <td>Tanggal</td>
         <td>Produk</td>
-        <td>Kwantitas</td>
-        <td>Harga</td>
-        <td>Total</td>
-        <td>Pajak</td>
-        <td>Status Pembayara</td>
+        <td>Tanggal</td>
+        <td>Stok</td>
     </tr>
     </thead>
     <tbody>
@@ -32,14 +27,18 @@
         @foreach($data as $data_list)
             <tr>
                 <td>{{ $data_list['no'] }}</td>
-                <td>{{ date('d-m-Y', strtotime($data_list['tgl'])) }}</td>
-                <td>{{ $data_list['product'] }}</td>
-                <td>{{ $data_list['kwantitas'] }}</td>
-                <td>{{ $data_list['harga'] }}</td>
-                <td>{{ $data_list['total'] }}</td>
-                <td>{{ $data_list['pajak'] }}</td>
-                <td>{{ $data_list['status_pembayaran'] }}</td>
+                <td colspan="2">{{ $data_list['nama_barang'] }}</td>
+                <td></td>
             </tr>
+            @if(!empty($data_list['sub_data']))
+                @foreach($data_list['sub_data'] as $data_sub)
+                    <tr>
+                        <td colspan="2"></td>
+                        <td>{{ date('d-m-Y', strtotime($data_sub['tgl'])) }}</td>
+                        <td>{{ $data_sub['sisa_stok'] }}</td>
+                    </tr>
+                @endforeach
+            @endif
         @endforeach
     @endif
     </tbody>

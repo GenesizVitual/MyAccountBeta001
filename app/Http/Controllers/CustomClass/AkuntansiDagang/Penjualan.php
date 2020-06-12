@@ -12,11 +12,21 @@ use App\Model\AkuntansiDagang\Penjualan as penjualan_;
 class Penjualan
 {
     public static $id_bisnis;
+
+    public static $begin_date_a_year;
+    public static $end_date_a_year;
+
+
+    public static function set_date_(){
+        self::$begin_date_a_year = date('Y-01-01');
+        self::$end_date_a_year = date('Y-12-31');
+    }
+
     public static function penjualan($array){
-        $model = penjualan_::all()->where('id_bisnis', self::$id_bisnis)->sortBy('tgl_penjualan');
+        $model = penjualan_::where('id_bisnis', self::$id_bisnis)->whereBetween('tgl_penjualan',[self::$begin_date_a_year, self::$end_date_a_year]);
         $no = 1;
         $container = array();
-        foreach ($model as $data){
+        foreach ($model->orderBy('tgl_penjualan','asc')->get() as $data){
             $row = array();
             $row['no'] = $no++;
             $row['id_penjualan'] = $data->id;

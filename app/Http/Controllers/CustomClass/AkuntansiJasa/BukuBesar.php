@@ -20,6 +20,16 @@ class BukuBesar
     public static $kategori_jurnal;
     public static $id_bisnis;
 
+    public static $begin_date_a_year;
+    public static $end_date_a_year;
+
+
+    public static function set_date_(){
+        self::$begin_date_a_year = date('Y-01-01');
+        self::$end_date_a_year = date('Y-12-31');
+    }
+
+
     public static function operasiSaldo($data){
 
         //Jika Posisi Saldo = Posisi Akun
@@ -65,7 +75,15 @@ class BukuBesar
 
 
     public static function BukuBesar($array){
-        $data = JurnalTransaksiAkun::all()->where('tgl_jurnal','=',2020)->whereIn('kategori_jurnal',self::$kategori_jurnal)->sortBy('tgl_jurnal')->where('id_bisnis', self::$id_bisnis)->groupBy('akun_transaksi_id');
+        $data = JurnalTransaksiAkun::all()
+            ->where('tgl_jurnal','=',2020)
+            ->whereBetween('tgl_jurnal',[self::$begin_date_a_year, self::$end_date_a_year])
+            ->whereIn('kategori_jurnal',self::$kategori_jurnal)
+            ->sortBy('tgl_jurnal')
+            ->where('id_bisnis', self::$id_bisnis)
+            ->groupBy('akun_transaksi_id');
+
+
         $container=array();
         foreach ($data as $key => $akun){
             self::$total_saldo_debet=0;

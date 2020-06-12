@@ -61,11 +61,20 @@ Route::get('jurnal-umum', 'AkuntansiJasa\report\JurnalUmum@JurnalUmum');
 
 Route::get('buku-besar', 'AkuntansiJasa\report\BukuBesar@buku_besar');
 
+Route::post('ceta-buku-besar', 'AkuntansiJasa\report\BukuBesar@cetak_buku_besar');
+
+
 Route::get('neraca-saldo', 'AkuntansiJasa\report\NeracaSaldo@NeracaSaldo');
+
+Route::post('ceta-neraca-saldo', 'AkuntansiJasa\report\NeracaSaldo@CetakNeracaSaldo');
 
 Route::get('laba-rugi','AkuntansiJasa\report\LabaRugi@LabaRugi');
 
+Route::post('cetak-laba-rugi','AkuntansiJasa\report\LabaRugi@CetakLabaRugi');
+
 Route::get('neraca','AkuntansiJasa\report\Neraca@neraca');
+
+Route::post('ceta-neraca','AkuntansiJasa\report\Neraca@cetak_neraca');
 
 Route::get('jurnal-penyesuian', 'AkuntansiJasa\report\JurnalUmum@JurnalPenyesuian');
 
@@ -143,6 +152,12 @@ Route::post('list-produk','AkuntansiDagang\main\POS@plug_produk');
 
 Route::get('laporan-pembelian','AkuntansiDagang\report\Pembelian@index');
 
+Route::post('print-pembelian','AkuntansiDagang\report\Pembelian@print_pembelian');
+
 Route::get('laporan-penjualan','AkuntansiDagang\report\Penjualan@index');
 
+Route::post('print-penjualan','AkuntansiDagang\report\Penjualan@print_penjualan');
+
 Route::get('laporan-stok','AkuntansiDagang\report\StokProduk@index');
+
+Route::post('print-stok','AkuntansiDagang\report\StokProduk@cetak_stok');
