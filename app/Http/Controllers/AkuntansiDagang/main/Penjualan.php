@@ -21,8 +21,10 @@ class Penjualan extends Controller
     public function index()
     {
         $product = Product::all()->where('id_bisnis',Session::get('id_bisnis'));
-        $model  = penjualan_dagang::all()->where('id_bisnis',Session::get('id_bisnis'))->sortByDesc('id')->groupBy('kode');
-        return view('AkuntansiDagang.Penjualan.view', array('data'=> $model,'product'=>$product));
+        $date_now = date('Y-m-d');
+        $model_terbaru  = penjualan_dagang::all()->where('id_bisnis',Session::get('id_bisnis'))->where('tgl_penjualan',$date_now)->sortByDesc('id')->groupBy('kode')->take(1);
+        $model_lama  = penjualan_dagang::all()->where('id_bisnis',Session::get('id_bisnis'))->where('tgl_penjualan',$date_now)->sortByDesc('id')->groupBy('kode')->skip(1);
+        return view('AkuntansiDagang.Penjualan.view', array('data'=> $model_terbaru,'model_lama'=>$model_lama,'product'=>$product));
     }
 
     public function slip_penjualan($kode, $range)
@@ -55,32 +57,38 @@ class Penjualan extends Controller
 
 
     public function store(Request $req){
-        foreach ($req->product_id as $key => $id_product)
-        {
-            if(!empty($req->kwantitas[$key])) {
-                $total_pajak = 0;
-                $data_product = Product::findOrFail($id_product);
-                $penjualan = new penjualan_dagang();
-                $penjualan->tgl_penjualan = date('Y-m-d',strtotime($req->tgl_penjualan));
-                $penjualan->product_id = $id_product;
-                $penjualan->kwantitas = $req->kwantitas[$key];
-                $penjualan->harga = $data_product->harga;
-                $total_pembayaran = $req->kwantitas[$key] * $data_product->harga;
-                $total_pajak = 0.1 * $total_pembayaran;
+        if(!empty($req->product_id)){
+            foreach ($req->product_id as $key => $id_product)
+            {
+                if(!empty($req->kwantitas[$key])) {
+                    $total_pajak = 0;
+                    $data_product = Product::findOrFail($id_product);
+                    $penjualan = new penjualan_dagang();
+                    $penjualan->tgl_penjualan = date('Y-m-d',strtotime($req->tgl_penjualan));
+                    $penjualan->product_id = $id_product;
+                    $penjualan->kwantitas = $req->kwantitas[$key];
+                    $penjualan->harga = $data_product->harga;
+                    $total_pembayaran = $req->kwantitas[$key] * $data_product->harga;
+                    $total_pajak = 0.1 * $total_pembayaran;
 
-                $penjualan->jumlah_pajak = $total_pajak;
-                $penjualan->status_pembayaran = $req->status_pembayaran;
-                $penjualan->kode = $req->kode;
-                $penjualan->id_bisnis = Session::get('id_bisnis');
+                    $penjualan->jumlah_pajak = $total_pajak;
+                    $penjualan->status_pembayaran = $req->status_pembayaran;
+                    $penjualan->kode = $req->kode;
+                    $penjualan->id_bisnis = Session::get('id_bisnis');
 
-                if ($penjualan->save()) {
-                    $penjurnalan = PembelianPenjuanlan::penjualan($penjualan);
-                    $product = Product::findOrFail($penjualan->product_id);
-                    $product->stok -=$req->kwantitas[$key];
-                    $product->save();
+                    if ($penjualan->save()) {
+                        $penjurnalan = PembelianPenjuanlan::penjualan($penjualan);
+                        $product = Product::findOrFail($penjualan->product_id);
+                        $product->stok -=$req->kwantitas[$key];
+                        $product->save();
+                    }
                 }
             }
+        }else{
+            $req->session()->flash('message_fail','Masukan produk terlebih dahulu');
+            return redirect('data-penjualan');
         }
+        $req->session()->flash('message_success','Nota telah ditambahkan');
         return redirect('data-penjualan');
     }
 

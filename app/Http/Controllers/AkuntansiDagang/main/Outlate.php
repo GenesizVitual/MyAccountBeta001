@@ -11,7 +11,7 @@ class Outlate extends Controller
     //
 
     public function index(){
-        $model = Bisnis::where('user_id',Session::get('user_id'))->first();
+        $model = Bisnis::where('id',Session::get('id_bisnis'))->first();
         return view('AkuntansiDagang.Outlate.view',array('data'=>$model));
     }
 

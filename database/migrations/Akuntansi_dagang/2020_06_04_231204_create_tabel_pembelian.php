@@ -21,6 +21,8 @@ class CreateTabelPembelian extends Migration
             $table->decimal('harga', 12,4);
             $table->enum('status_pajak',[0,1])->default(0);
             $table->decimal('jumlah_pajak', 12,4);
+            $table->enum('status_pembayaran',['Cash','Kredit'])->default('Cash');
+            $table->string('kode');
             $table->bigInteger('id_bisnis')->references('id')->on('bisnis')->onDelete('cascade');
             $table->timestamps();
         });

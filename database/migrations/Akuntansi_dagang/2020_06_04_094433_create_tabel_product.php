@@ -16,10 +16,10 @@ class CreateTabelProduct extends Migration
         Schema::create('product', function (Blueprint $table) {
             $table->id();
             $table->string('nama_barang');
+            $table->string('gambar');
             $table->string('satuan');
-            $table->integer('kwantitas');
-            $table->decimal('harga_satuan', 12,4);
             $table->integer('margin');
+            $table->decimal('harga', 12,4);
             $table->integer('stok');
             $table->bigInteger('id_bisnis')->references('id')->on('bisnis')->onDelete('cascade');
             $table->timestamps();

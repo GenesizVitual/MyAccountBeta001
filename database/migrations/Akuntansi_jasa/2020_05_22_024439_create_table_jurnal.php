@@ -19,7 +19,9 @@ class CreateTableJurnal extends Migration
             $table->string('kode');
             $table->string('transaksi');
             $table->string('kategori_jurnal');
-            $table->bigInteger('id_bisnis');
+            $table->bigInteger('id_bisnis')->references('id')->on('bisnis')->onDelete('cascade');
+            $table->integer('id_pembelian')->unsigned()->default(0);
+            $table->integer('id_pembelian')->unsigned()->default(0);
             $table->timestamps();
         });
     }

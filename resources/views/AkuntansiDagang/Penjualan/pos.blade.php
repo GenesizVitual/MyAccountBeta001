@@ -32,8 +32,8 @@
                        </div>
                         <p>
                             Status Pembayaran: <br>
-                            <input type="radio" name="status_pembayaran" value="Cash"> Tunai <br>
-                            <input type="radio" name="status_pembayaran" value="Kredit"> Kredit <br>
+                            <input type="radio" name="status_pembayaran" value="Cash" required> Tunai <br>
+                            <input type="radio" name="status_pembayaran" value="Kredit" required> Kredit <br>
                         </p>
                         {{ csrf_field() }}
                         <button class="btn btn-primary" type="button" id="prev"><i class="fa fa-eye"></i> Lihat </button>

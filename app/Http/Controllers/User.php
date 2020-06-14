@@ -17,8 +17,12 @@ class User extends Controller
             $req->session()->put('user_id', $user->id);
             $req->session()->put('nama', $user->name);
             $req->session()->put('level', $user->level);
-            $bisnis = Bisnis::where('user_id', $user->id)->first();
-            $req->session()->put('id_bisnis', $bisnis->id);
+            if($user->level==0){
+                $bisnis = Bisnis::where('user_id', $user->id)->first();
+                $req->session()->put('id_bisnis', $bisnis->id);
+            }else{
+                $req->session()->put('id_bisnis', $user->id_bisnis);
+            }
             $req->session()->flash('message_success','Selamat Datang di Aplikasi Manajemen Persediaan');
             return redirect('outlate');
         }else{
@@ -27,8 +31,58 @@ class User extends Controller
         }
     }
 
-    public function store(Request $req){
+    public function index(){
+        $data = Users::all()->where('id_bisnis', Session::get('id_bisnis'));
+        return view('AkuntansiDagang.Karyawan.view', array('data'=> $data));
+    }
 
+    public function create(){
+        return view('AkuntansiDagang.Karyawan.new');
+    }
+
+    public function store_karyawan(Request $req){
+        $user = new Users();
+        $user->name = $req->name;
+        $user->email = $req->email;
+        $user->password = bcrypt($req->password);
+        $user->level = $req->level;
+        $user->id_bisnis = Session::get('id_bisnis');
+        if($user->save()){
+            $req->session()->flash('message_success','Anda telah berhasil menambahkan karyawan baru');
+            return redirect('karyawan');
+        }
+
+    }
+
+    public function update_karyawan(Request $req, $id){
+        $user = Users::findOrFail($id);
+        $user->name = $req->name;
+        $user->email = $req->email;
+        $user->password = bcrypt($req->password);
+        $user->level = $req->level;
+        $user->id_bisnis = Session::get('id_bisnis');
+        if($user->save()){
+            $req->session()->flash('message_success','Anda telah berhasil mengubah data karyawan');
+            return redirect('karyawan');
+        }
+    }
+
+    public function delete_produk(Request $req, $id){
+        $user = Users::findOrFail($id);
+        if($user->delete()){
+            $req->session()->flash('message_success','Anda telah berhasil menghapus data karyawan');
+            return redirect('karyawan');
+        }
+    }
+
+
+    public function edit($id){
+        $data = Users::findOrFail($id);
+        return view('AkuntansiDagang.Karyawan.edit', array('data'=> $data));
+    }
+
+
+    public function store(Request $req){
         if($req->password != $req->repeat_password){
             $req->session()->flash('message_fail','Password Anda Tidak Sama');
             return redirect('register');
@@ -38,7 +92,7 @@ class User extends Controller
         $user->name = $req->name;
         $user->email = $req->email;
         $user->password = bcrypt($req->password);
-        $user->level = 0;
+        $user->level = $req->level;
 
 
         if($user->save()){

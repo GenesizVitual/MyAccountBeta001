@@ -29,6 +29,18 @@
         </li>
     @endif
 
+
+    @if(Session::get('level')==0)
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('karyawan') }}">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Karyawan</span>
+            </a>
+        </li>
+    @endif
+
+
     @if(Session::get('level')==0)
         <hr class="sidebar-divider">
 

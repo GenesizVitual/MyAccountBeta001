@@ -90,6 +90,18 @@ Route::get('ubah-outlate/{id}','AkuntansiDagang\main\Outlate@edit');
 
 Route::post('update-outlate/{id}','AkuntansiDagang\main\Outlate@update');
 
+Route::get('karyawan','User@index');
+
+Route::get('tambah-karyawan','User@create');
+
+Route::post('store-karyawan','User@store_karyawan');
+
+Route::get('ubah-karyawan/{id}','User@edit');
+
+Route::post('delete-produk/{id}','User@delete_produk');
+
+Route::post('update-karyawan/{id}','User@update_karyawan');
+
 Route::get('daftar-produk','AkuntansiDagang\main\Product@index');
 
 Route::get('tambah-produk','AkuntansiDagang\main\Product@create');
