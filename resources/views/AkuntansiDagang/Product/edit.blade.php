@@ -19,8 +19,8 @@
                             <input type="text" class="form-control" name="nama_barang" value="{{ $data->nama_barang }}" required>
                         </h5>
                         <h5>
-                            Gambar :
-                            <input type="file" class="form-control" name="gambar" value="{{ $data->gambar }}"  >
+                            Gambar : {{ $data->gambar  }}
+                            <input type="file" class="form-control" name="gambar" required >
                         </h5>
                         <h5>
                             Satuan :

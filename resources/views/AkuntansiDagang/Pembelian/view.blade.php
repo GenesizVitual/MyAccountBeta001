@@ -18,6 +18,8 @@
             <!-- Card Body -->
             <div class="card-body">
                 <p>Halaman ini akan menampilkan seluruh produk yang ada dioutlet anda</p>
+                @include('message')
+
                 @foreach($data as $kode=>$data_pembelian)
                     <p >Kode Pembelian : {{ $kode }} </p>
                     <form action="{{ url('ubah-pembelian/'.$kode) }}" method="post">

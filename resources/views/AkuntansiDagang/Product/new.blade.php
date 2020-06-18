@@ -20,7 +20,7 @@
                         </h5>
                         <h5>
                             Gambar :
-                            <input type="file" class="form-control" name="gambar">
+                            <input type="file" class="form-control" name="gambar" required>
                         </h5>
                         <h5>
                             Satuan :

@@ -15,7 +15,7 @@
                     <form action="{{ url('pembelian-store') }}" method="post">
                         <p> Kode Transaksi <input class="form-control" type="text" name="kode" value="{{ $kode }}" readonly></p>
                         <p>
-                            Tanggal: <input class="form-control" type="date" name="tgl_pembelian">
+                            Tanggal: <input class="form-control" type="date" name="tgl_pembelian" required>
                         </p>
                         @for($i=1; $i<=$range; $i++)
                             <div >
@@ -38,8 +38,8 @@
                         @endfor
                         <p>
                             Status Pembayaran: <br>
-                            <input type="radio" name="status_pembayaran" value="Cash"> Tunai <br>
-                            <input type="radio" name="status_pembayaran" value="Kredit"> Kredit <br>
+                            <input type="radio" name="status_pembayaran" value="Cash" required> Tunai <br>
+                            <input type="radio" name="status_pembayaran" value="Kredit" required> Kredit <br>
                         </p>
                         {{ csrf_field() }}
                         <button type="submit" class="btn btn-success" onclick="return confirm('Pastikan data pembelian anda sudah benar')">Simpan</button>

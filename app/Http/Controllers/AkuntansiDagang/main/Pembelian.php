@@ -54,28 +54,32 @@ class Pembelian extends Controller
     public function store(Request $req)
     {
         foreach ($req->product_id as $key => $id_product){
-            $total_pajak=0;
-            $pembelian = new pembelian_dagang();
-            $pembelian->tgl_pembelian = $req->tgl_pembelian;
-            $pembelian->product_id = $id_product;
-            $pembelian->kwantitas =$req->kwantitas[$key];
-            $pembelian->harga = $req->harga[$key];
+            if(!empty($req->kwantitas[$key])){
+                $total_pajak=0;
+                $pembelian = new pembelian_dagang();
+                $pembelian->tgl_pembelian = $req->tgl_pembelian;
+                $pembelian->product_id = $id_product;
+                $pembelian->kwantitas =$req->kwantitas[$key];
+                $pembelian->harga = $req->harga[$key];
 
-            $total_pembayaran = $req->kwantitas[$key] * $req->harga[$key];
-            $total_pajak = 0.1 * $total_pembayaran;
+                $total_pembayaran = $req->kwantitas[$key] * $req->harga[$key];
+                $total_pajak = 0.1 * $total_pembayaran;
 
-            $pembelian->jumlah_pajak = $total_pajak;
-            $pembelian->status_pembayaran= $req->status_pembayaran;
-            $pembelian->kode= $req->kode;
-            $pembelian->id_bisnis = Session::get('id_bisnis');
-            if($pembelian->save()){
-                $penjurnalan = PembelianPenjuanlan::pembelian($pembelian);
-                $product = Product::findOrFail($pembelian->product_id);
-                $product->stok += $pembelian->kwantitas;
-                $product->save();
+                $pembelian->jumlah_pajak = $total_pajak;
+                $pembelian->status_pembayaran= $req->status_pembayaran;
+                $pembelian->kode= $req->kode;
+                $pembelian->id_bisnis = Session::get('id_bisnis');
+                if($pembelian->save()){
+                    $req->session()->flash('message_success', 'Nota Pembelian Berhasil Dibuat');
+                    $penjurnalan = PembelianPenjuanlan::pembelian($pembelian);
+                    $product = Product::findOrFail($pembelian->product_id);
+                    $product->stok += $pembelian->kwantitas;
+                    $product->save();
+                    return redirect('data-pembelian');
+                }
             }
         }
-
+        $req->session()->flash('message_fail', 'Nota Pembelian Gagal Dibuat');
         return redirect('data-pembelian');
     }
 
@@ -103,29 +107,48 @@ class Pembelian extends Controller
                     $product->stok -= $req->kwantitas_lama[$key]-$req->kwantitas[$key];
                 }
                 $product->save();
+                $req->session()->flash('message_success', 'Nota Pembelian Berhasil Diubah');
+                return redirect('data-pembelian');
             }
         }
+        $req->session()->flash('message_fail', 'Nota Pembelian Gagal Diubah');
         return redirect('data-pembelian');
     }
 
 
-    public function delete_pembelian($kode){
+    public function delete_pembelian(Request $req, $kode){
         $data = pembelian_dagang::all()->where('kode',$kode);
         foreach ($data as $model_pembelian) {
             if ($model_pembelian->delete()) {
-                $model_jurnal = Jurnal::where('id_pembelian', $model_pembelian->id)->first();
+
+                $product = Product::findOrFail($model_pembelian->product_id);
+                $product->stok -= $model_pembelian->kwantitas;
+                $product->save();
+
+                $model_jurnal = Jurnal::where('id_pembelian', $model_pembelian->id);
                 $model_jurnal->delete();
+                $req->session()->flash('message_success', 'Nota Pembelian Berhasil Dihapus');
+                return redirect('data-pembelian');
             }
         }
+        $req->session()->flash('message_fail', 'Nota Pembelian Gagal Dihapus');
         return redirect('data-pembelian');
     }
 
-    public function delete_item_pembelian($id){
-        $model_pembelian = pembelian_dagang::fiindOrFail($id);
+    public function delete_item_pembelian(Request $req,$id){
+        $model_pembelian = pembelian_dagang::findOrFail($id);
         if ($model_pembelian->delete()) {
-            $model_jurnal = Jurnal::where('id_pembelian', $model_pembelian->id)->first();
+
+            $product = Product::findOrFail($model_pembelian->product_id);
+            $product->stok -= $model_pembelian->kwantitas;
+            $product->save();
+
+            $model_jurnal = Jurnal::where('id_pembelian', $model_pembelian->id);
             $model_jurnal->delete();
+            $req->session()->flash('message_success', 'Nota Pembelian Berhasil Dihapus');
+            return redirect('data-pembelian');
         }
+        $req->session()->flash('message_fail', 'Nota Pembelian Gagal Dihapus');
         return redirect('data-pembelian');
     }
 

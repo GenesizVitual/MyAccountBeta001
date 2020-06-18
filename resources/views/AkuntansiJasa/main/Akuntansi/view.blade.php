@@ -18,7 +18,7 @@
             <!-- Card Body -->
             <div class="card-body">
                 <p>Halaman ini akan menampilkan seluruh jurnal yang ada dioutlet anda</p>
-
+                @include('message')
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>

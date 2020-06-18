@@ -25,7 +25,7 @@ class Product extends Controller
         $model->satuan = $req->satuan;
         $model->harga = $req->harga;
         $model->stok = $req->stok;
-        $model->id_bisnis = 2;
+        $model->id_bisnis = Session::get('id_bisnis');
         $gambar= $req->gambar;
 
         $imagename = time() . '.' . $gambar->getClientOriginalExtension();
@@ -54,7 +54,7 @@ class Product extends Controller
         $model->satuan = $req->satuan;
         $model->harga = $req->harga;
         $model->stok = $req->stok;
-        $model->id_bisnis = 2;
+        $model->id_bisnis = Session::get('id_bisnis');
         $gambar= $req->gambar;
 
         $imagename = time() . '.' . $gambar->getClientOriginalExtension();

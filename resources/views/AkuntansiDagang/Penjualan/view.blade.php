@@ -17,6 +17,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
+                    @include('message')
                     @foreach($data as $kode=>$data_penjualan)
                         <p >Kode Penjualan : {{ $kode }} </p>
                         <form  action="{{ url('ubah-penjualan/'.$kode) }}" method="post">

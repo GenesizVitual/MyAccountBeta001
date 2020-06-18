@@ -4,6 +4,7 @@
     <h1 class="h3 mb-4 text-gray-800">Outlate</h1>
 
 <div class="row">
+
     <div class="col-xl-8 col-lg-7">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
@@ -17,6 +18,7 @@
             </div>
             <!-- Card Body -->
             <div class="card-body">
+                @include('message')
                 <p>Halaman ini akan menampilkan data profil tentang outlate anda</p>
                 <h4>Nama Outlate: {{ $data->nama_bisnis }}</h4>
                 <h5>Alamat :{{ $data->alamat }}</h5>

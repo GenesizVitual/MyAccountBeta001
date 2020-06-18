@@ -57,7 +57,7 @@
                 </div>
                 <div class="form-group">
                   <input type="text" class="form-control form-control-user" required name="alamat" id="exampleInputEmail" placeholder="Alamat resto anda">
-                  <input name="level" type="hidden" level="0">
+                  <input name="level" type="hidden" value="0">
                 </div>
                 <button type="submit" class="btn btn-primary btn-user btn-block">
                   Registrasi Akun Anda

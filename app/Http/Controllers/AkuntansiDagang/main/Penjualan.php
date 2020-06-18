@@ -127,7 +127,7 @@ class Penjualan extends Controller
         $data = penjualan_dagang::all()->where('kode',$kode);
         foreach ($data as $model_penjualan) {
             if ($model_penjualan->delete()) {
-                $model_jurnal = Jurnal::where('id_penjualan', $model_penjualan->id)->first();
+                $model_jurnal = Jurnal::where('id_penjualan', $model_penjualan->id);
 
                 if($model_jurnal->delete()){
                     $product = Product::findOrFail($model_penjualan->product_id);
@@ -141,7 +141,7 @@ class Penjualan extends Controller
     public function delete_item_penjualan($id){
         $model_penjualan = penjualan_dagang::fiindOrFail($id);
         if ($model_penjualan->delete()) {
-            $model_jurnal = Jurnal::where('id_penjualan', $model_penjualan->id)->first();
+            $model_jurnal = Jurnal::where('id_penjualan', $model_penjualan->id);
             if($model_jurnal->delete()){
                 $product = Product::findOrFail($model_penjualan->product_id);
                 $product->stok += $model_penjualan->kwantitas;

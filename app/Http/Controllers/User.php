@@ -98,11 +98,10 @@ class User extends Controller
         if($user->save()){
            $bisnis = new Bisnis();
            $bisnis->nama_bisnis = $req->nama_bisnis;
-           $bisnis->nama_bisnis = $req->nama_bisnis;
-           $bisnis->jenis_bisnis = "DAGANG";
-           $bisnis->alamat = $req->alamat;
-           $bisnis->user_id = $user->id;
-           if($bisnis->save()){
+            $bisnis->jenis_bisnis = "DAGANG";
+            $bisnis->alamat = $req->alamat;
+            $bisnis->user_id = $user->id;
+            if($bisnis->save()){
                $req->session()->flash('message_success','Anda telah berhasil mendaftar');
                return redirect('login');
            }
