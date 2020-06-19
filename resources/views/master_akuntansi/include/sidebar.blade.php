@@ -54,12 +54,6 @@
 
 
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url('pos/5') }}">
-            <i class="fas fa-fw fa-archive"></i>
-            <span>POS</span>
-        </a>
-    </li>
 
 
     @if(Session::get('level')==0)
@@ -89,6 +83,14 @@
                 <a class="collapse-item" href="{{ url('data-penjualan') }}">Penjualan</a>
             </div>
         </div>
+    </li>
+
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('pos/5') }}">
+            <i class="fas fa-fw fa-archive"></i>
+            <span>POS</span>
+        </a>
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->

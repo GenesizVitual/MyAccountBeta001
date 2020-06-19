@@ -125,7 +125,7 @@ class Pembelian extends Controller
                 $product->stok -= $model_pembelian->kwantitas;
                 $product->save();
 
-                $model_jurnal = Jurnal::where('id_pembelian', $model_pembelian->id);
+                $model_jurnal = Jurnal::where('id_pembelian', $model_pembelian->id)->first();
                 $model_jurnal->delete();
                 $req->session()->flash('message_success', 'Nota Pembelian Berhasil Dihapus');
                 return redirect('data-pembelian');
@@ -143,7 +143,7 @@ class Pembelian extends Controller
             $product->stok -= $model_pembelian->kwantitas;
             $product->save();
 
-            $model_jurnal = Jurnal::where('id_pembelian', $model_pembelian->id);
+            $model_jurnal = Jurnal::where('id_pembelian', $model_pembelian->id)->first();
             $model_jurnal->delete();
             $req->session()->flash('message_success', 'Nota Pembelian Berhasil Dihapus');
             return redirect('data-pembelian');

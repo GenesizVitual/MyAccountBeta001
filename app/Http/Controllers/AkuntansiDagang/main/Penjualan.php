@@ -120,6 +120,7 @@ class Penjualan extends Controller
                 }
             }
         }
+        $req->session()->flash('message_success','Nota telah ditambahkan');
         return redirect('data-penjualan');
     }
 
@@ -127,26 +128,30 @@ class Penjualan extends Controller
         $data = penjualan_dagang::all()->where('kode',$kode);
         foreach ($data as $model_penjualan) {
             if ($model_penjualan->delete()) {
-                $model_jurnal = Jurnal::where('id_penjualan', $model_penjualan->id);
+                $model_jurnal = Jurnal::where('id_penjualan', $model_penjualan->id)->first();
 
                 if($model_jurnal->delete()){
                     $product = Product::findOrFail($model_penjualan->product_id);
                     $product->stok += $model_penjualan->kwantitas;
+                    $product->save();
                 }
             }
         }
+        $req->session()->flash('message_success','Nota telah dihapus');
         return redirect('data-penjualan');
     }
 
-    public function delete_item_penjualan($id){
+    public function delete_item_penjualan(Request $req, $id){
         $model_penjualan = penjualan_dagang::fiindOrFail($id);
         if ($model_penjualan->delete()) {
-            $model_jurnal = Jurnal::where('id_penjualan', $model_penjualan->id);
+            $model_jurnal = Jurnal::where('id_penjualan', $model_penjualan->id)->first();
             if($model_jurnal->delete()){
                 $product = Product::findOrFail($model_penjualan->product_id);
                 $product->stok += $model_penjualan->kwantitas;
+                $product->save();
             }
         }
+        $req->session()->flash('message_success','Nota telah dihapus');
         return redirect('data-penjualan');
     }
 

@@ -38,7 +38,7 @@
                                 <td>{{ $no++ }}</td>
                                 <td >
                                     @if(!empty($list->gambar))
-                                        <img src="{{ asset('produk/'.$list->gambar) }}" style="width: 110px; margin: 0px" alt="Gambar Belum diupload"/>
+                                        <img src="{{ asset('produk/'.$list->gambar) }}" style="width: 110px; height:60px; margin: 0px" alt="Gambar Belum diupload"/>
                                     @else
                                         <img src="https://c8.alamy.com/comp/PTCGH0/food-not-allowed-icon-design-vector-PTCGH0.jpg" style="width: 110px; margin: 0px" alt="Gambar Belum diupload"/>
                                     @endif
