@@ -27,17 +27,18 @@ class Akuntansi extends Controller
     }
 
     public function store(Request $req){
-
         $model = new Jurnal();
         $model->tgl_transaksi = $req->tgl_transaksi;
         $model->kode = $req->kode;
         $model->transaksi = $req->transaksi;
         $model->kategori_jurnal = $req->kategori_jurnal;
         $model->id_bisnis = Session::get('id_bisnis');
-       if($model->save()){
+        if($model->save()){
             $req->session()->flash('message_success','Anda telah membuat Jurnal');
             return redirect('detail-jurnal/'.$model->id);
         }
+        $req->session()->flash('message_fail','Anda telah mengubah Jurnal');
+        return redirect('akuntansi');
     }
 
     public function detail_jurnal($id_jurnal){
@@ -45,9 +46,43 @@ class Akuntansi extends Controller
         JurnalUmum::$ketegori_jurnal = array(1);
         JurnalUmum::$id_bisnis = Session::get('id_bisnis');
         $data = JurnalUmum::JurnalUmum('');
+        $data_jurnal = Jurnal::findOrFail($id_jurnal);
         $akun = Akun::all();
-        return view('AkuntansiJasa.main.Akuntansi.detail_jurnal',array('data'=> $data, 'data_akuns'=>$akun,'proses'=>self::$proses,'id_jurnal'=>$id_jurnal));
+        return view('AkuntansiJasa.main.Akuntansi.detail_jurnal',array('data'=> $data,'data_jurnal'=> $data_jurnal, 'data_akuns'=>$akun,'proses'=>self::$proses,'id_jurnal'=>$id_jurnal));
     }
+
+
+    public function edit($id_jurnal){
+        $model_jurnal = Jurnal::findOrFail($id_jurnal);
+        return view('AkuntansiJasa.main.Akuntansi.edit', array('data'=> $model_jurnal));
+    }
+
+    public function update(Request $req, $id){
+        $model = Jurnal::find($id);
+        $model->tgl_transaksi = $req->tgl_transaksi;
+        $model->kode = $req->kode;
+        $model->transaksi = $req->transaksi;
+        $model->kategori_jurnal = $req->kategori_jurnal;
+        $model->id_bisnis = Session::get('id_bisnis');
+        if($model->save()){
+            $req->session()->flash('message_success','Anda telah mengubah Jurnal');
+            return redirect('akuntansi');
+        }
+
+        $req->session()->flash('message_fail','Anda gagal mengubah Jurnal');
+        return redirect('akuntansi');
+    }
+
+    public function delete(Request $req, $id){
+        $model = Jurnal::findOrFail($id);
+        if($model->delete()){
+            $req->session()->flash('message_success','Anda telah menghapus Jurnal');
+            return redirect('akuntansi');
+        }
+        $req->session()->flash('message_fail','Anda telah mengubah Jurnal');
+        return redirect('akuntansi');
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function create_akun($id_jurnal){
         self::$proses = "create";

@@ -29,7 +29,7 @@ class JurnalUmum
             $data->where('id', self::$id_jurnal);
         }
 
-        foreach ($data->get() as $jurnal)
+        foreach ($data->orderBy('id','desc')->get() as $jurnal)
         {
             $row=array();
             $row['no']= $no_urut++;

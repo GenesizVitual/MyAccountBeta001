@@ -45,7 +45,11 @@ Route::get('jurnal','AkuntansiJasa\main\Akuntansi@create');
 
 Route::post('store-jurnal','AkuntansiJasa\main\Akuntansi@store');
 
-Route::post('store-jurnal','AkuntansiJasa\main\Akuntansi@store');
+Route::get('ubah-jurnal/{id}','AkuntansiJasa\main\Akuntansi@edit');
+
+Route::post('updates-jurnal/{id}','AkuntansiJasa\main\Akuntansi@update');
+
+Route::post('hapus-jurnal/{id}','AkuntansiJasa\main\Akuntansi@delete');
 
 Route::get('detail-jurnal/{id_jurnal}','AkuntansiJasa\main\Akuntansi@detail_jurnal');
 

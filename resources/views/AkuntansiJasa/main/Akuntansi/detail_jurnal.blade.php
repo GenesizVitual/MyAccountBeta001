@@ -8,7 +8,7 @@
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Daftar Jurnal</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ $data_jurnal->transaksi }}</h6>
                 <div class="dropdown no-arrow">
                     <a href="{{ url('detail-jurnal/'.$id_jurnal.'/create') }}" class="btn btn-primary" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-plus fa-sm fa-fw text-gray-400"></i> Tambah Akun
@@ -18,6 +18,7 @@
             <!-- Card Body -->
             <div class="card-body">
                 <p>Halaman ini akan menampilkan seluruh akun yang berkaitan dengan jurnal yang ada dioutlet anda</p>
+                @include('message')
                 @if($proses != 'default' )
                 <form action="{{ url('store-akun/'.$id_jurnal) }}" method="post">
                     <p>
@@ -87,11 +88,11 @@
                                                 @endforeach
                                             </select>
                                         </td>
-                                        <td>
-                                            <input name="jum_debet[]" type="text" class="form-control" value="{{ $data_akun['jum_debet'] }}">
+                                        <td style="width:100px;">
+                                            <input name="jum_debet[]" type="text" class="form-control" value="{{ number_format($data_akun['jum_debet'],0,'','') }}">
                                         </td>
-                                        <td>
-                                            <input name="jum_kredit[]" type="text" class="form-control" value="{{ $data_akun['jum_kredit'] }}">
+                                        <td style="width:100px;">
+                                            <input name="jum_kredit[]" type="text" class="form-control" value="{{ number_format($data_akun['jum_kredit'],0,'','') }}">
                                         </td>
                                         <td>
                                             <form action="{{ url('delete-akun/'.$data_akun['akun_id']) }}" method="post">
@@ -107,8 +108,8 @@
                         <tfoot>
                         <tr style="background-color: greenyellow">
                             <td colspan="4" style="text-align: center">Total</td>
-                            <td >{{ number_format($data['total_debet'],2,',','.') }}</td>
-                            <td >{{ number_format($data['total_kredit'],2,',','.') }}</td>
+                            <td >{{ number_format($data['total_debet'],0,'','') }}</td>
+                            <td >{{ number_format($data['total_kredit'],0,'','') }}</td>
                             <td ></td>
                         </tr>
                         </tfoot>

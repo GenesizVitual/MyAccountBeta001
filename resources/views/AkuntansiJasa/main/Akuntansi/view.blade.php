@@ -39,8 +39,15 @@
                             <td>{{ date('d-m-Y', strtotime($jurnalUmum['tanggal_transaksi'])) }}</td>
                             <td>{{ $jurnalUmum['kode'] }}</td>
                             <td colspan="3">{{ $jurnalUmum['jurnal'] }}</td>
-                            <td><a href="#" class="btn btn-sm btn-primary">Tambah Akun</a>
-                                <a href="{{ url('detail-jurnal/'.$jurnalUmum['id_jurnal']) }}" class="btn btn-sm btn-primary">Lihat Jurnal</a></td>
+                            <td style="width: 280px">
+                                <form action="{{ url('hapus-jurnal/'.$jurnalUmum['id_jurnal'])}}" method="post">
+                                    {{ csrf_field() }}
+                                    <a href="#" class="btn btn-sm btn-primary">Tambah Akun</a>
+                                    <a href="{{ url('detail-jurnal/'.$jurnalUmum['id_jurnal']) }}" class="btn btn-sm btn-primary">Lihat Jurnal</a>
+                                    <a href="{{ url('ubah-jurnal/'.$jurnalUmum['id_jurnal']) }}" class="btn btn-sm btn-warning"><i class="fa fa-pen"></i></a>
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda akan menghapus jurnal ini ...?')"><i class="fa fa-eraser"></i></button>
+                                </form>
+                            </td>
                         </tr>
                         @if(!empty($jurnalUmum['data']))
                             @foreach($jurnalUmum['data'] as $data_akun)
