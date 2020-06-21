@@ -17,7 +17,15 @@
     {{--<i class="fas fa-fw fa-tachometer-alt"></i>--}}
     {{--<span>Dashboard</span></a>--}}
     {{--</li>--}}
-
+    @if(Session::get('level')==0)
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('pengaturan-akun') }}">
+                <i class="fas fa-fw fa-bed"></i>
+                <span>Akun</span>
+            </a>
+        </li>
+    @endif
 
     @if(Session::get('level')==0)
         <hr class="sidebar-divider">

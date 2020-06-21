@@ -39,6 +39,18 @@ Route::get('logout','User@out');
 
 //============================================= Akuntansi Jasa =========================================================
 
+Route::get('pengaturan-akun','AkuntansiJasa\main\Akun@index');
+
+Route::get('akun-transaksi', 'AkuntansiJasa\main\Akun@create');
+
+Route::post('store-akun-transaksi', 'AkuntansiJasa\main\Akun@store');
+
+Route::get('ubah-akun-transaksi/{id}', 'AkuntansiJasa\main\Akun@edit');
+
+Route::post('update-akun-transaksi/{id}', 'AkuntansiJasa\main\Akun@update');
+
+Route::get('delete-akun-transaksi/{id}', 'AkuntansiJasa\main\Akun@delete');
+
 Route::get('akuntansi', 'AkuntansiJasa\main\Akuntansi@index');
 
 Route::get('jurnal','AkuntansiJasa\main\Akuntansi@create');
@@ -157,7 +169,9 @@ Route::get('pos/{range}','AkuntansiDagang\main\POS@list_post');
 
 Route::get('selipkan-penjualan-pos/{kode_penjualan}','AkuntansiDagang\main\POS@slip_penjualan');
 
-Route::get('cetak-penjualan/{kode}','AkuntansiDagang\main\POS@cetak_stuck');
+Route::post('cetak-penjualan','AkuntansiDagang\main\POS@cetak_stuck');
+
+Route::get('lihat-penjualan/{kode}','AkuntansiDagang\main\POS@detail_penjualan');
 
 Route::post('prev','AkuntansiDagang\main\POS@lihat_belanja' );
 

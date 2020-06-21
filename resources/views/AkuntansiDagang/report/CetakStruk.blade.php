@@ -46,6 +46,21 @@
                 <td colspan="4">Total :</td>
                 <td>{{ number_format($total+$total_pajak,2,',','.') }}</td>
             </tr>
+            <tr>
+                <td colspan="4">Bayar :</td>
+                <td>{{ number_format($tota_bayar,2,',','.') }}</td>
+            </tr>
+            @if($tota_bayar-($total+$total_pajak) >0)
+            <tr>
+                <td colspan="4">Kembalian :</td>
+                <td>{{ number_format($tota_bayar-($total+$total_pajak),2,',','.') }}</td>
+            </tr>
+            @else
+                <tr>
+                    <td colspan="4">Kurang Bayar :</td>
+                    <td>{{ number_format(($total+$total_pajak)-$tota_bayar,2,',','.') }}</td>
+                </tr>
+            @endif
             </tbody>
 
         </table>

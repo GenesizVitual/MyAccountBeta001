@@ -1,6 +1,53 @@
 @extends('master_akuntansi.base')
 
 @section('content')
+
+
+    <div class="modal fade" id="modal-pembayaran" >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="title">Tabel Penjualan</h4>
+                </div>
+                <form action="{{ url('cetak-penjualan') }}" method="POST">
+                    <div class="modal-body">
+                        <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-success btn-lg" style="margin-top: 20px;width: 100%">
+                                           Banyak Item: <label id="item_count"></label>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary btn-lg" style="margin-top: 20px;width: 100%">
+                                            Grand Total: <label id="total_count"></label>
+                                            <input type="hidden" class="btn btn-danger btn-lg" id="grand_total">
+                                        </button>
+                                    </div>
+                                    <div class="col-md-12" style="margin-top: 20px; width: 100%">
+                                        <input type="hidden" class="btn btn-danger btn-lg" id="kode" name="kode">
+                                        <input type="number" class="form-control" id="uang" name="uang" placeholder="Total Pembayaran">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn btn-danger btn-lg" style="margin-top: 20px;width: 100%">
+                                            Kembalian: <label id="kembalian_count"></label>
+                                        </button>
+                                    </div>
+                                </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-primary pull-right">Bayar</button>
+                    </div>
+                 </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <h1 class="h3 mb-4 text-gray-800">Penjualan </h1>
 
     <div class="row">
@@ -31,7 +78,7 @@
                                     <td colspan="5"><a class="btn btn-success"  href="{{ url('selipkan-penjualan/'.$kode.'/1') }}"><i class="fa fa-book"></i> Selipkan Penjualan</a> <a class="btn btn-success"  href="{{ url('selipkan-penjualan-pos/'.$kode) }}" target="_blank"><i class="fa fa-archive"></i> Selipkan Penjualan (Mode POS)</a></td>
                                     <td colspan="2">
                                         <a href="{{ url('hapus-penjualan/'.$kode) }}" class="btn btn-danger"  onclick="return confirm('Apakah anda akan menghapus data')"><i class="fa fa-eraser"></i> Hapus Penjualan</a>
-                                        <a href="{{ url('cetak-penjualan/'.$kode) }}" class="btn btn-primary" ><i class="fa fa-print"></i> Cetak</a>
+                                        <a href="#" class="btn btn-primary" onclick="jumlah_bayar('{{$kode}}')"><i class="fa fa-print"></i> Bayar</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -132,4 +179,32 @@
         </div>
 
     </div>
+@stop
+
+
+@section('js')
+    <script>
+        $(document).ready(function () {
+
+            jumlah_bayar = function (kode) {
+                $.ajax({
+                    url:"{{ url('lihat-penjualan') }}/"+kode,
+                    type: "get",
+                    success: function(result){
+                        console.log(result);
+                        $('#item_count').text(result.banyak_barang);
+                        $('#kode').val(kode);
+                        $('#total_count').text(result.total_bayar);
+                        $('#grand_total').val(result.total_bayar);
+                        $('#modal-pembayaran').modal('show');
+                    }
+                });
+            }
+
+            $('#uang').on('input',function () {
+                var grand_total = $('#grand_total').val();
+                $('#kembalian_count').text($(this).val() - grand_total);
+            })
+        })
+    </script>
 @stop

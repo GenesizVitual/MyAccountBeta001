@@ -34,6 +34,7 @@
                                 <td colspan="2">
                                     <a href="{{ url('hapus-pembelian/'.$kode) }}" class="btn btn-danger" onclick="return confirm('Apakah anda akan menghapus data')"><i class="fa fa-eraser"></i> Hapus Pembelian</a>
                                 </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>No</td>
@@ -42,8 +43,9 @@
                                 <td style="width: 30px">Kwantitas</td>
                                 <td style="width: 150px">Harga</td>
                                 <td>Jumlah Pajak</td>
+                                <td>Total Bayar</td>
                                 <td></td>
-                            </tr>
+                             </tr>
                             @foreach($data_pembelian as $row)
                                 <tr>
                                     <td><input type="hidden" name="id[]" value="{{ $row->id }}"></input>{{ $i++ }}</td>
@@ -58,6 +60,7 @@
                                     <td> <input class="form-control" type="text" name="kwantitas[]" value="{{ $row->kwantitas }}"> <input type="hidden" name="kwantitas_lama[]" value="{{ $row->kwantitas }}"> </td>
                                     <td> <input class="form-control"  type="text" name="harga[]" value="{{ $row->harga }}"></td>
                                     <td> <input class="form-control"  type="hidden" name="status_pembayaran[]" value="{{ $row->status_pembayaran }}">{{ $row->jumlah_pajak }}</td>
+                                    <td> {{ ($row->harga * $row->kwantitas)+$row->jumlah_pajak }} </td>
                                     <td> <a href="{{ url('hapus-item-pembelian/'. $row->id) }}" onclick="return confirm('Apakah anda akan menghapus data pembelian ...?')">Hapus Item Pembelian</a> </td>
                                 </tr>
                             @endforeach

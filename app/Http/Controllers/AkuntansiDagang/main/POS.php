@@ -48,10 +48,24 @@ class POS extends Controller
     }
 
 
-    public function cetak_stuck($kode){
+    public function cetak_stuck(Request $req){
+        $kode =  $req->kode;
+        $total_bayar = $req->uang;
         $data = penjualan_dagang::all()->where('kode',$kode);
         $bisnis = Bisnis::findOrFail(Session::get('id_bisnis'));
-        return view('AkuntansiDagang.report.CetakStruk', array('data'=> $data,'bisnis'=> $bisnis, 'kode'=> $kode,'tgl'=>$data->first()));
+        return view('AkuntansiDagang.report.CetakStruk', array('data'=> $data,'tota_bayar'=>$total_bayar,'bisnis'=> $bisnis, 'kode'=> $kode,'tgl'=>$data->first()));
+    }
+
+    public function detail_penjualan($kode){
+        $data_banyak_data = penjualan_dagang::all()->where('kode', $kode);
+        $count_data = 0;
+        $total_data = $data_banyak_data->count();
+        $total_bayar =0;
+        foreach ($data_banyak_data as $data)
+        {
+            $total_bayar  += ($data->kwantitas * $data->harga) + $data->jumlah_pajak;
+        }
+        return array( 'banyak_barang'=> $total_data, 'total_bayar'=> $total_bayar);
     }
 
     public function lihat_belanja(Request $req){
