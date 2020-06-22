@@ -95,6 +95,7 @@
                                         <td><input class="form-control" type="hidden" name="id[]" value="{{ $row->id }}"></input>{{ $i++ }}</td>
                                         <td><input class="form-control" type="date" name="tgl_penjualan[]" value="{{ $row->tgl_penjualan }}"></td>
                                         <td>
+                                            <input type="hidden" name="product_id_lama[]" value="{{ $row->product_id }}">
                                             <select class="form-control" name="product_id[]">
                                                 @foreach($product as $data)
                                                     <option value="{{ $data->id }}" @if($data->id==$row->product_id) selected @endif>{{ $data->nama_barang }}</option>
@@ -102,8 +103,8 @@
                                             </select>
                                         </td>
                                         <td> <input class="form-control" type="text" name="kwantitas[]" value="{{ $row->kwantitas }}"> <input type="hidden" name="kwantitas_lama[]" value="{{ $row->kwantitas }}"></td>
-                                        <td> <input class="form-control" type="text" name="harga[]" value="{{ number_format($row->harga,2,',','.') }}" readonly></td>
-                                        <td> <input class="form-control" type="hidden" name="status_pembayaran[]" value="{{ $row->status_pembayaran }}">{{ number_format($row->jumlah_pajak,2,',','.') }}</td>
+                                        <td> <input class="form-control" type="text" name="harga[]" value="{{ number_format($row->harga,0,'','') }}" readonly></td>
+                                        <td> <input class="form-control" type="hidden" name="status_pembayaran[]" value="{{ $row->status_pembayaran }}">{{ number_format($row->jumlah_pajak,0,'','') }}</td>
                                         <td> <a href="{{ url('hapus-item-penjualan/'. $row->id) }}" onclick="return confirm('Apakah anda akan menghapus data pembelian ...?')">Hapus Item Penjualan</a> </td>
                                     </tr>
                                 @endforeach
@@ -155,6 +156,7 @@
                                             <td><input class="form-control" type="hidden" name="id[]" value="{{ $row->id }}"></input>{{ $i++ }}</td>
                                             <td><input class="form-control" type="date" name="tgl_penjualan[]" value="{{ $row->tgl_penjualan }}"></td>
                                             <td>
+                                                <input type="hidden" name="product_id_lama[]" value="{{ $row->product_id }}">
                                                 <select class="form-control" name="product_id[]">
                                                     @foreach($product as $data)
                                                         <option value="{{ $data->id }}" @if($data->id==$row->product_id) selected @endif>{{ $data->nama_barang }}</option>
@@ -162,8 +164,8 @@
                                                 </select>
                                             </td>
                                             <td> <input class="form-control" type="text" name="kwantitas[]" value="{{ $row->kwantitas }}"> <input type="hidden" name="kwantitas_lama[]" value="{{ $row->kwantitas }}"></td>
-                                            <td> <input class="form-control" type="text" name="harga[]" value="{{ number_format($row->harga,2,',','.') }}" readonly></td>
-                                            <td> <input class="form-control" type="hidden" name="status_pembayaran[]" value="{{ $row->status_pembayaran }}">{{ number_format($row->jumlah_pajak,2,',','.') }}</td>
+                                            <td> <input class="form-control" type="text" name="harga[]" value="{{ number_format($row->harga,0,'','') }}" readonly></td>
+                                            <td> <input class="form-control" type="hidden" name="status_pembayaran[]" value="{{ $row->status_pembayaran }}">{{ number_format($row->jumlah_pajak,0,'','') }}</td>
                                             <td> <a href="{{ url('hapus-item-penjualan/'. $row->id) }}" onclick="return confirm('Apakah anda akan menghapus data pembelian ...?')">Hapus Item Penjualan</a> </td>
                                         </tr>
                                     @endforeach

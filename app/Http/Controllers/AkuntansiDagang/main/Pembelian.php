@@ -70,16 +70,15 @@ class Pembelian extends Controller
                 $pembelian->kode= $req->kode;
                 $pembelian->id_bisnis = Session::get('id_bisnis');
                 if($pembelian->save()){
-                    $req->session()->flash('message_success', 'Nota Pembelian Berhasil Dibuat');
+
                     $penjurnalan = PembelianPenjuanlan::pembelian($pembelian);
                     $product = Product::findOrFail($pembelian->product_id);
                     $product->stok += $pembelian->kwantitas;
                     $product->save();
-                    return redirect('data-pembelian');
                 }
             }
         }
-        $req->session()->flash('message_fail', 'Nota Pembelian Gagal Dibuat');
+        $req->session()->flash('message_success', 'Nota Pembelian Berhasil Dibuat');
         return redirect('data-pembelian');
     }
 
@@ -88,7 +87,7 @@ class Pembelian extends Controller
             $total_pajak=0;
             $pembelian = pembelian_dagang::find($req->id[$key]);
             $pembelian->tgl_pembelian = $req->tgl_pembelian[$key];
-            $pembelian->product_id = $id_product;
+            $pembelian->product_id = $req->product_id[$key];
             $pembelian->kwantitas =$req->kwantitas[$key];
             $pembelian->harga = $req->harga[$key];
 
@@ -100,18 +99,19 @@ class Pembelian extends Controller
             $pembelian->id_bisnis = Session::get('id_bisnis');
             if($pembelian->save()){
                 $penjurnalan = PembelianPenjuanlan::pembelian($pembelian);
-                $product = Product::findOrFail($pembelian->product_id);
-                if($req->kwantitas[$key]>$req->kwantitas_lama[$key]){
-                    $product->stok += $req->kwantitas[$key]-$req->kwantitas_lama[$key];
-                }else{
-                    $product->stok -= $req->kwantitas_lama[$key]-$req->kwantitas[$key];
+                $total_stok_old = PembelianPenjuanlan::stok($req->product_id_lama[$key]);
+                $old_produk = Product::findOrFail($req->product_id_lama[$key]);
+                $old_produk->stok = $total_stok_old;
+                if($old_produk->save()){
+                    $total_stok_new = PembelianPenjuanlan::stok($req->product_id[$key]);
+                    $new_product = Product::findOrFail($req->product_id[$key]);
+                    $new_product->stok = $total_stok_new;
+                    $new_product->save();
                 }
-                $product->save();
-                $req->session()->flash('message_success', 'Nota Pembelian Berhasil Diubah');
-                return redirect('data-pembelian');
+
             }
         }
-        $req->session()->flash('message_fail', 'Nota Pembelian Gagal Diubah');
+        $req->session()->flash('message_success', 'Nota Pembelian Berhasil Diubah');
         return redirect('data-pembelian');
     }
 

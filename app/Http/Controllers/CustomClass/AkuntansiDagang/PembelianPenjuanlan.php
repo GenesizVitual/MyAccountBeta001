@@ -9,12 +9,23 @@
 namespace App\Http\Controllers\CustomClass\AkuntansiDagang;
 use App\Model\AkuntansiJasa\Jurnal as Jurnal;
 use App\Model\AkuntansiJasa\JurnalTransaksiAkun;
+use App\Model\AkuntansiDagang\Pembelian;
+use App\Model\AkuntansiDagang\Penjualan;
+
 
 
 class PembelianPenjuanlan
 {
 
     public static $akun_tunai_atau_kredit;
+
+    public static function stok($id_barang){
+        $semua_pembelian = Pembelian::where('product_id', $id_barang)->sum('kwantitas');
+        $semua_penjualan = Penjualan::where('product_id', $id_barang)->sum('kwantitas');
+        $sisa_stok = $semua_pembelian-$semua_penjualan;
+        return $sisa_stok;
+    }
+
 
     public static function jurnal($object, $transaksi){
         if(!empty($object->tgl_pembelian)){

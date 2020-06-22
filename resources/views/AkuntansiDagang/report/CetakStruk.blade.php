@@ -6,7 +6,7 @@
     <center>
     <table>
         <p>Kode Transaksi :{{ $kode }}</p>
-        <p>Tanggal :{{ $tgl->tgl_penjualan }}</p>
+        <p>Tanggal :{{ date('d-m-Y', strtotime($tgl->tgl_penjualan)) }}</p>
         <table border="1" style="margin-bottom: 10px; border: solid; ">
 
             @php($i=1)

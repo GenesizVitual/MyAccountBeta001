@@ -110,13 +110,15 @@ class Penjualan extends Controller
                 $penjualan->id_bisnis = Session::get('id_bisnis');
                 if($penjualan->save()){
                     $penjurnalan = PembelianPenjuanlan::penjualan($penjualan);
-                    $product = Product::findOrFail($penjualan->product_id);
-                    if($req->kwantitas[$key]>$req->kwantitas_lama[$key]){
-                        $product->stok += $req->kwantitas_lama[$key] - $req->kwantitas[$key];
-                    }else{
-                        $product->stok += $req->kwantitas_lama[$key] - $req->kwantitas[$key];
+                    $total_stok_old = PembelianPenjuanlan::stok($req->product_id_lama[$key]);
+                    $old_produk = Product::findOrFail($req->product_id_lama[$key]);
+                    $old_produk->stok = $total_stok_old;
+                    if($old_produk->save()){
+                        $total_stok_new = PembelianPenjuanlan::stok($req->product_id[$key]);
+                        $new_product = Product::findOrFail($req->product_id[$key]);
+                        $new_product->stok = $total_stok_new;
+                        $new_product->save();
                     }
-                    $product->save();
                 }
             }
         }

@@ -24,7 +24,8 @@ class Penjualan extends Controller
         penjualan_::$id_bisnis = Session::get('id_bisnis');
         $bisnis = Bisnis::findOrFail(Session::get('id_bisnis'));
         $data = penjualan_::penjualan('');
-        return view('AkuntansiDagang.report.PembelianDanPenjualan_old', array('data'=>$data,'judul'=>'Penjualan','bisnis'=>$bisnis));
+        return view('AkuntansiDagang.report.PembelianDanPenjualan_old', array('data'=>$data,'judul'=>'Penjualan',
+            'bisnis'=>$bisnis,'tgl_awal'=>$req->tgl_awal,'tgl_akhir'=>$req->tgl_akhir));
     }
 
 }

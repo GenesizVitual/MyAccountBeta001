@@ -51,14 +51,15 @@
                                     <td><input type="hidden" name="id[]" value="{{ $row->id }}"></input>{{ $i++ }}</td>
                                     <td><input class="form-control" type="date" name="tgl_pembelian[]" value="{{ $row->tgl_pembelian }}"></td>
                                     <td>
+                                        <input type="hidden" name="product_id_lama[]" value="{{ $row->product_id }}">
                                         <select  class="form-control" name="product_id[]">
-                                            @foreach($product as $data)
+                                        @foreach($product as $data)
                                                 <option value="{{ $data->id }}" @if($data->id==$row->product_id) selected @endif>{{ $data->nama_barang }}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td> <input class="form-control" type="text" name="kwantitas[]" value="{{ $row->kwantitas }}"> <input type="hidden" name="kwantitas_lama[]" value="{{ $row->kwantitas }}"> </td>
-                                    <td> <input class="form-control"  type="text" name="harga[]" value="{{ $row->harga }}"></td>
+                                    <td> <input class="form-control"  type="text" name="harga[]" value="{{ $row->harga }}"> <input class="form-control"  type="hidden" name="harga_lama[]" value="{{ $row->harga }}"></td>
                                     <td> <input class="form-control"  type="hidden" name="status_pembayaran[]" value="{{ $row->status_pembayaran }}">{{ $row->jumlah_pajak }}</td>
                                     <td> {{ ($row->harga * $row->kwantitas)+$row->jumlah_pajak }} </td>
                                     <td> <a href="{{ url('hapus-item-pembelian/'. $row->id) }}" onclick="return confirm('Apakah anda akan menghapus data pembelian ...?')">Hapus Item Pembelian</a> </td>

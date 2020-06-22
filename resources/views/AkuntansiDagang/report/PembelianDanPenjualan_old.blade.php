@@ -11,9 +11,13 @@
     <!-- Custom styles for this page -->
     <link href="{{ asset('Asset/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 </head>
-<body style="margin-left: 10%; margin-right: 20%">
-<h1>{{ $judul }}</h1>
-
+<body style="margin-left: 10%; margin-right: 10%">
+<center>
+<h3>{{ $judul }}</h3>
+<h6 style="text-align: center">{{ $bisnis->nama_bisnis }}</h6>
+<h6>{{ $bisnis->alamat }}</h6>
+<h6>Periode: {{ date('d-m-Y', strtotime($tgl_awal)) }} - {{ date('d-m-Y', strtotime($tgl_akhir)) }}</h6>
+<p></p>
 <table border="1" style="width: 80%">
     <thead>
     <tr>
@@ -44,5 +48,7 @@
     @endif
     </tbody>
 </table>
+</center>
 </body>
+
 </html>

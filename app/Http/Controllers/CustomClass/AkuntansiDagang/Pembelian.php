@@ -15,7 +15,6 @@ class Pembelian
     public static $begin_date_a_year;
     public static $end_date_a_year;
 
-
     public static function set_date_(){
         self::$begin_date_a_year = date('Y-01-01');
         self::$end_date_a_year = date('Y-12-31');

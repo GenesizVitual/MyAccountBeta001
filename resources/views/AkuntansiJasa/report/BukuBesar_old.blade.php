@@ -13,11 +13,16 @@
     <link href="{{ asset('Asset/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 </head>
 <body style="margin-left: 10%; margin-right: 20%">
+<center>
 <h1>{{ $judul }}</h1>
-
+<h6 style="text-align: center">{{ $bisnis->nama_bisnis }}</h6>
+<h6>{{ $bisnis->alamat }}</h6>
+<h6>Periode: {{ date('d-m-Y', strtotime($tgl_awal)) }} - {{ date('d-m-Y', strtotime($tgl_akhir)) }}</h6>
+<p></p>
 
 @foreach($data as $akun_group)
-    <p style="font-weight: bold">{{ $akun_group['kode'] }} - {{ $akun_group['nama_akun'] }} </p>
+    <div>
+    <p style="font-weight: bold; text-align: left; padding-left: 5%">{{ $akun_group['kode'] }} - {{ $akun_group['nama_akun'] }} </p>
     <table border="1" style="width: 90%">
         <tr style="background-color: lawngreen; font-weight: bold ">
             <td rowspan="2">Tanggal</td>
@@ -49,7 +54,9 @@
             <td colspan="2"></td>
         </tr>
     </table>
+    </div>
 @endforeach
+</center>
 </body>
 <script>
     window.print();

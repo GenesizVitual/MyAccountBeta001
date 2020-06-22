@@ -12,10 +12,14 @@
     <!-- Custom styles for this page -->
     <link href="{{ asset('Asset/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 </head>
-<body style="margin-left: 10%; margin-right: 20%">
+<body style="margin-left: 10%; margin-right: 10%">
+<center>
 <h1>{{ $judul }}</h1>
-<ul>
-
+<h6 style="text-align: center">{{ $bisnis->nama_bisnis }}</h6>
+<h6>{{ $bisnis->alamat }}</h6>
+<h6>Periode: {{ date('d-m-Y', strtotime($tgl_awal)) }} - {{ date('d-m-Y', strtotime($tgl_akhir)) }}</h6>
+    <div style="padding-left: 10%">
+<ul style="text-align: left;">
     @foreach($data as $lv1s=> $new_data)
         @php($total = 0)
         <li>{{ $lv1s }}
@@ -59,6 +63,8 @@
         </li>
     @endforeach
 </ul>
+    </div>
+</center>
 </body>
 <script>
     window.print();
