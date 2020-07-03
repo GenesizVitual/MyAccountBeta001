@@ -58,6 +58,7 @@ class Neraca
             }
         }
         $new_container = self::pluck_laba_rugi($container);
+        dd($new_container);
         $laba_bersih = 0;
         $container['Total']=$laba_bersih;
         return $new_container;
